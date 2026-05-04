@@ -1,0 +1,1909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Hidden Cost of Turnover and Burnout · Julianna Systems</title>
+  <meta name="description" content="A free 3 minute diagnostic for leaders in industrial, manufacturing, construction, supply chain, energy, engineering, tech, healthcare, and recruitment. See what turnover and burnout are actually costing your business, and what is at stake over the next decade.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,400;9..144,500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --font-display: 'Space Grotesk', 'Helvetica Neue', Arial, sans-serif;
+      --font-body: 'IBM Plex Mono', 'Menlo', monospace;
+      --font-accent: 'Fraunces', 'Georgia', serif;
+
+      --paper: #F7F0E1;
+      --paper-deep: #F1E8D3;
+      --card: #FBF7EC;
+      --card-soft: #F0E6CE;
+      --ink: #1B1B1B;
+      --ink-soft: #4D4232;
+      --ink-muted: #8A7B5E;
+      --line: #D5C7A6;
+      --line-soft: #E5DBBE;
+
+      --terracotta: #A14B1E;
+      --terracotta-deep: #7A3914;
+      --mustard: #C5821B;
+      --olive: #6B6F2A;
+      --olive-soft: #E8E4CB;
+      --warm-cream: #F4EBD3;
+
+      --r-sm: 4px;
+      --r-md: 8px;
+      --r-lg: 14px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      font-family: var(--font-body);
+      color: var(--ink);
+      background: var(--paper);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      font-size: 15px;
+    }
+
+    h1, h2, h3, h4, .display { font-family: var(--font-display); letter-spacing: -0.01em; }
+
+    /* Top bar */
+    .topbar {
+      max-width: 880px; margin: 0 auto;
+      padding: 1rem 1.5rem 0;
+      display: flex; align-items: center; justify-content: space-between;
+      font-family: var(--font-body); font-size: 12px; color: var(--ink-soft);
+    }
+    .monogram {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      text-decoration: none; color: var(--ink);
+      cursor: pointer; background: none; border: none;
+    }
+    .monogram-mark {
+      width: 32px; height: 32px;
+      border: 1.5px solid var(--ink);
+      border-radius: var(--r-sm);
+      display: inline-flex; align-items: center; justify-content: center;
+      font-family: var(--font-display); font-weight: 700; font-size: 13px;
+      letter-spacing: 0.02em;
+    }
+    .monogram-text {
+      font-family: var(--font-display); font-weight: 500; font-size: 13px;
+      letter-spacing: 0.04em; text-transform: uppercase;
+    }
+    .topbar-tag {
+      font-family: var(--font-accent); font-style: italic;
+      font-size: 13px; color: var(--ink-muted);
+    }
+
+    .page { max-width: 880px; margin: 0 auto; padding: 1rem 1.5rem 1.5rem; }
+
+    /* Progress bar */
+    .progress-wrap {
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.85rem;
+      border-bottom: 1px dashed var(--line);
+    }
+    .progress-meta {
+      display: flex; justify-content: space-between; align-items: baseline;
+      font-family: var(--font-body); font-size: 11px;
+      color: var(--ink-muted); letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .progress-meta strong {
+      color: var(--ink); font-weight: 500;
+    }
+    .progress-track {
+      height: 3px; background: var(--line-soft);
+      border-radius: 999px; overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%; background: var(--terracotta);
+      border-radius: 999px; transition: width 0.45s ease;
+      width: 0%;
+    }
+
+    /* Screens */
+    .screen { display: none; }
+    .screen.active { display: block; animation: fadeIn 0.32s ease; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Welcome */
+    .welcome { padding: 0.5rem 0 0.5rem; }
+    .welcome-mark {
+      display: flex; align-items: center; gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .welcome-monogram {
+      width: 56px; height: 56px;
+      border: 2px solid var(--ink); border-radius: var(--r-md);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display); font-weight: 700; font-size: 21px;
+      letter-spacing: 0.02em; color: var(--ink);
+      background: var(--card);
+    }
+    .welcome-mark-text {
+      font-family: var(--font-display); font-weight: 700;
+      font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--ink); margin-bottom: 2px;
+    }
+    .welcome-mark-tag {
+      font-family: var(--font-accent); font-style: italic;
+      font-size: 14px; color: var(--ink-soft);
+    }
+    .welcome-headline {
+      font-family: var(--font-display); font-size: clamp(24px, 4.5vw, 40px);
+      font-weight: 700; line-height: 1.08; letter-spacing: -0.015em;
+      color: var(--ink); margin-bottom: 1rem; max-width: 720px;
+    }
+    .welcome-lead {
+      font-family: var(--font-body); font-size: 13px;
+      color: var(--ink-soft); line-height: 1.6;
+      max-width: 600px; margin-bottom: 1.25rem;
+    }
+    .welcome-meta {
+      display: flex; gap: 1.25rem; flex-wrap: wrap;
+      font-family: var(--font-body); font-size: 10.5px;
+      color: var(--ink-muted); letter-spacing: 0.06em; text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+    .welcome-meta span::before {
+      content: '·'; color: var(--terracotta); font-weight: 700;
+      font-size: 18px; margin-right: 6px;
+    }
+    .welcome-actions {
+      margin-bottom: 1.5rem;
+      display: flex; gap: 12px; align-items: center; flex-wrap: wrap;
+    }
+    .welcome-actions .secondary-note {
+      font-family: var(--font-body); font-size: 11px; color: var(--ink-muted);
+    }
+    .brand-quote {
+      font-family: var(--font-accent); font-style: italic;
+      font-size: 14px; color: var(--ink-soft);
+      border-left: 2px solid var(--terracotta); padding-left: 1rem;
+      max-width: 480px; line-height: 1.45;
+    }
+    .brand-quote-attr {
+      font-family: var(--font-body); font-size: 10px;
+      color: var(--ink-muted); letter-spacing: 0.06em;
+      text-transform: uppercase; margin-top: 6px;
+      font-style: normal;
+    }
+
+    /* Screen header (input screens + results) */
+    .screen-header { margin-bottom: 1rem; }
+    .screen-eyebrow {
+      font-family: var(--font-body); font-size: 10.5px;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--terracotta); font-weight: 500;
+      margin-bottom: 0.4rem;
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .screen-eyebrow .step-num {
+      font-family: var(--font-display); font-weight: 700;
+      color: var(--ink);
+    }
+    .screen-headline {
+      font-family: var(--font-display); font-size: clamp(20px, 3.2vw, 28px);
+      font-weight: 700; color: var(--ink);
+      line-height: 1.15; letter-spacing: -0.01em;
+      margin-bottom: 0.35rem;
+    }
+    .screen-quote {
+      font-family: var(--font-accent); font-style: italic;
+      font-size: 13px; color: var(--ink-muted);
+      max-width: 540px;
+    }
+
+    /* Core panels (each step screen wraps content in these) */
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--line-soft);
+      border-radius: var(--r-lg);
+      padding: 1.25rem;
+      margin-bottom: 1rem;
+    }
+
+    .section-label {
+      font-family: var(--font-body); font-size: 11px;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--ink-muted); font-weight: 500;
+      margin-bottom: 0.85rem;
+    }
+
+    /* Inputs */
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 0.75rem; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 0.75rem; }
+    .grid-3:last-child, .grid-2:last-child { margin-bottom: 0; }
+    .field-label {
+      font-family: var(--font-body); font-size: 11.5px;
+      color: var(--ink-soft); margin-bottom: 5px;
+      display: flex; align-items: center; justify-content: space-between;
+      line-height: 1.35;
+    }
+    .skip-hint {
+      font-size: 9.5px; color: var(--ink-muted);
+      letter-spacing: 0.04em; text-transform: uppercase;
+    }
+    input[type="number"] {
+      width: 100%; padding: 10px 12px; font-size: 15px;
+      background: var(--paper); border: 1px solid var(--line);
+      border-radius: var(--r-md); color: var(--ink);
+      font-family: var(--font-display); font-weight: 500;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    input[type="number"].with-prefix { padding-left: 26px; }
+    input[type="number"]:focus { outline: none; border-color: var(--terracotta); background: var(--card); }
+    .input-wrap { position: relative; }
+    .input-prefix {
+      position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+      font-family: var(--font-body); font-size: 14px; color: var(--ink-muted);
+      pointer-events: none;
+    }
+
+    /* Pill toggles */
+    .pills { display: flex; gap: 6px; flex-wrap: wrap; }
+    .pill {
+      font-family: var(--font-body); font-size: 12px;
+      padding: 9px 16px; border-radius: 999px;
+      border: 1px solid var(--line); background: var(--paper);
+      color: var(--ink-soft); cursor: pointer;
+      transition: all 0.15s;
+    }
+    .pill:hover { border-color: var(--ink-muted); }
+    .pill.on {
+      background: var(--ink); border-color: var(--ink);
+      color: var(--paper); font-weight: 500;
+    }
+
+    .pill-group { margin-bottom: 1rem; }
+    .pill-group:last-child { margin-bottom: 0; }
+    .pill-group-label {
+      font-family: var(--font-body); font-size: 11.5px;
+      color: var(--ink-soft); margin-bottom: 6px;
+    }
+
+    .divider { border: none; border-top: 1px dashed var(--line); margin: 1.5rem 0; }
+
+    /* Burnout signal cards */
+    .signal-meta {
+      display: flex; justify-content: space-between; align-items: baseline;
+      margin-bottom: 0.65rem; gap: 1rem; flex-wrap: wrap;
+    }
+    .signal-meta-text {
+      font-family: var(--font-body); font-size: 11.5px; color: var(--ink-soft);
+    }
+    .signal-counter {
+      font-family: var(--font-display); font-size: 12.5px; font-weight: 500;
+      color: var(--ink); display: flex; align-items: center; gap: 8px;
+    }
+    .signal-counter .added {
+      font-family: var(--font-body); font-size: 10.5px; color: var(--terracotta);
+      letter-spacing: 0.04em; text-transform: uppercase;
+    }
+    .signal-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+    }
+    .sig {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: start;
+      gap: 12px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 0.85rem 1rem;
+      background: var(--card);
+      cursor: pointer;
+      box-shadow: 0 1px 2px rgba(27, 27, 27, 0.03);
+      transition: background 0.22s ease, border-color 0.22s ease,
+                  box-shadow 0.22s ease, transform 0.22s ease;
+    }
+    .sig:hover {
+      background: rgba(244, 235, 211, 0.55);
+      border-color: var(--ink-muted);
+      transform: translateY(-1px);
+    }
+    .sig.on {
+      background: var(--warm-cream);
+      border-color: var(--terracotta);
+      box-shadow: 0 4px 14px rgba(161, 75, 30, 0.1);
+    }
+
+    .sig-icon {
+      width: 34px; height: 34px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: transform 0.22s ease;
+    }
+    .sig.on .sig-icon { transform: scale(1.05); }
+    .sig-icon svg { width: 18px; height: 18px; }
+    .sig-icon.mustard {
+      background: rgba(197, 130, 27, 0.14);
+      color: var(--mustard);
+    }
+    .sig-icon.terra {
+      background: rgba(161, 75, 30, 0.14);
+      color: var(--terracotta);
+    }
+    .sig-icon.olive {
+      background: rgba(107, 111, 42, 0.16);
+      color: var(--olive);
+    }
+
+    .sig-body { min-width: 0; padding-top: 1px; }
+    .sig-title {
+      font-family: var(--font-display);
+      font-size: 13px; font-weight: 600;
+      color: var(--ink); line-height: 1.3;
+      margin-bottom: 3px; letter-spacing: -0.005em;
+    }
+    .sig-desc {
+      font-family: var(--font-body);
+      font-size: 10.5px; color: var(--ink-muted);
+      line-height: 1.45;
+    }
+    .sig.on .sig-desc { color: var(--ink-soft); }
+
+    .sig-cost {
+      font-family: var(--font-display);
+      font-size: 12px; font-weight: 600;
+      color: var(--ink-muted);
+      letter-spacing: 0.01em;
+      white-space: nowrap;
+      padding-top: 6px;
+      transition: color 0.22s;
+    }
+    .sig.on .sig-cost { color: var(--terracotta); }
+
+    .bar-track {
+      height: 4px; background: var(--line-soft);
+      border-radius: 999px; overflow: hidden; margin-top: 0.65rem;
+    }
+    .bar-fill {
+      height: 100%; background: linear-gradient(90deg, var(--mustard), var(--terracotta));
+      border-radius: 999px; transition: width 0.4s ease;
+    }
+
+    /* Hero result number */
+    .result-hero {
+      background: var(--ink); color: var(--paper);
+      border-radius: var(--r-lg);
+      padding: 1.5rem 1.5rem;
+      margin-bottom: 1rem;
+      position: relative; overflow: hidden;
+    }
+    .result-hero::before {
+      content: 'JS'; position: absolute; top: -10px; right: -5px;
+      font-family: var(--font-display); font-size: 140px; font-weight: 700;
+      color: rgba(255,255,255,0.04); letter-spacing: -0.05em;
+      pointer-events: none;
+    }
+    .result-hero-top {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem; margin-bottom: 0.5rem; flex-wrap: wrap;
+    }
+    .result-hero-label {
+      font-family: var(--font-body); font-size: 11px;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--mustard);
+    }
+    /* Liquid-glass year toggle (sliding pill, two states) */
+    .year-toggle {
+      position: relative;
+      display: inline-grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      height: 32px;
+      padding: 2px;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 10px;
+      isolation: isolate;
+    }
+    .year-toggle .glass-distort {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      border-radius: 8px;
+      overflow: hidden;
+      pointer-events: none;
+      filter: url("#radio-glass");
+    }
+    .year-toggle::after {
+      content: '';
+      position: absolute;
+      top: 2px; bottom: 2px; left: 2px;
+      width: calc(50% - 2px);
+      border-radius: 8px;
+      background: rgba(247, 240, 225, 0.94);
+      box-shadow:
+        0 0 6px rgba(0, 0, 0, 0.04),
+        0 2px 6px rgba(0, 0, 0, 0.18),
+        inset 3px 3px 0.5px -3px rgba(255, 255, 255, 0.95),
+        inset -3px -3px 0.5px -3px rgba(0, 0, 0, 0.45),
+        inset 1px 1px 1px -0.5px rgba(255, 255, 255, 0.7),
+        inset -1px -1px 1px -0.5px rgba(0, 0, 0, 0.3),
+        inset 0 0 6px 6px rgba(0, 0, 0, 0.05),
+        inset 0 0 2px 2px rgba(0, 0, 0, 0.04),
+        0 0 12px rgba(255, 255, 255, 0.18);
+      transition: transform 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 0;
+      pointer-events: none;
+    }
+    .year-toggle[data-yrs-active="20"]::after { transform: translateX(100%); }
+
+    .year-btn {
+      position: relative;
+      z-index: 1;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0 16px;
+      height: 100%;
+      min-width: 56px;
+      font-family: var(--font-body);
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: rgba(247, 240, 225, 0.55);
+      transition: color 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      outline: none;
+      font-weight: 500;
+    }
+    .year-btn.on { color: var(--ink); }
+    .year-btn:focus-visible {
+      outline: 2px solid var(--mustard);
+      outline-offset: 2px;
+      border-radius: 6px;
+    }
+    .result-hero-value {
+      font-family: var(--font-display); font-size: clamp(36px, 8vw, 64px);
+      font-weight: 700; line-height: 1; color: var(--paper);
+      letter-spacing: -0.02em;
+    }
+    .result-hero-caption {
+      font-family: var(--font-body); font-size: 12px;
+      color: rgba(247,240,225,0.7); margin-top: 0.75rem;
+      max-width: 460px; line-height: 1.6;
+    }
+
+    /* Metric grid */
+    .metric-grid {
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px; margin-bottom: 1rem;
+    }
+    .metric {
+      background: var(--card); border-radius: var(--r-md);
+      padding: 0.85rem 1rem; border: 1px solid var(--line-soft);
+    }
+    .metric-lbl {
+      font-family: var(--font-body); font-size: 10px;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--ink-muted); margin-bottom: 6px;
+    }
+    .metric-val {
+      font-family: var(--font-display); font-size: 22px; font-weight: 600;
+      color: var(--ink); line-height: 1.1;
+    }
+    .metric-val.alert { color: var(--terracotta); }
+    .metric-val.warm { color: var(--mustard); }
+    .metric-sub {
+      font-family: var(--font-body); font-size: 11px;
+      color: var(--ink-muted); margin-top: 4px; line-height: 1.4;
+    }
+
+    .insight {
+      background: var(--olive-soft);
+      border-left: 3px solid var(--olive);
+      padding: 0.85rem 1.1rem;
+      border-radius: 0 var(--r-md) var(--r-md) 0;
+      margin-bottom: 1.25rem;
+      font-family: var(--font-body); font-size: 12px;
+      color: var(--ink-soft); line-height: 1.7;
+    }
+    .insight strong { font-weight: 500; color: var(--ink); }
+
+    /* Generational panel */
+    .gen {
+      background: var(--card); border: 1px solid var(--terracotta);
+      border-radius: var(--r-lg); padding: 1.25rem;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+    .gen-eyebrow {
+      font-family: var(--font-body); font-size: 10.5px;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--terracotta); font-weight: 500; margin-bottom: 0.4rem;
+    }
+    .gen-headline {
+      font-family: var(--font-accent); font-size: 19px; font-weight: 500;
+      color: var(--ink); margin-bottom: 0.5rem; line-height: 1.25;
+      font-style: italic;
+    }
+    .gen-copy {
+      font-family: var(--font-body); font-size: 12px;
+      color: var(--ink-soft); line-height: 1.6; margin-bottom: 1rem;
+    }
+    .gen-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+    .gen-cell {
+      background: var(--paper); border-radius: var(--r-md); padding: 0.85rem 1rem;
+    }
+    .gen-cell-val {
+      font-family: var(--font-display); font-size: 20px; font-weight: 600;
+      color: var(--terracotta); line-height: 1.1;
+    }
+    .gen-cell-lbl {
+      font-family: var(--font-body); font-size: 10px;
+      color: var(--ink-muted); letter-spacing: 0.06em;
+      text-transform: uppercase; margin-top: 4px;
+    }
+
+    .warn {
+      background: var(--card-soft); border-left: 3px solid var(--mustard);
+      border-radius: 0 var(--r-md) var(--r-md) 0;
+      padding: 1rem 1.1rem; margin-bottom: 1.25rem;
+      font-family: var(--font-body); font-size: 13px;
+      color: var(--ink-soft); line-height: 1.7;
+    }
+    .warn strong { color: var(--ink); font-weight: 500; }
+
+    /* What if panel */
+    .wi-title {
+      font-family: var(--font-display); font-size: 18px; font-weight: 600;
+      color: var(--ink); margin-bottom: 4px;
+    }
+    .wi-desc {
+      font-family: var(--font-body); font-size: 12px;
+      color: var(--ink-soft); margin-bottom: 1.25rem; line-height: 1.7;
+    }
+    .slider-row {
+      display: grid; grid-template-columns: 1fr auto;
+      align-items: center; gap: 12px; margin-bottom: 0.85rem;
+    }
+    .slider-row label {
+      font-family: var(--font-body); font-size: 12px;
+      color: var(--ink-soft); line-height: 1.4;
+    }
+    .slider-input {
+      width: 100%; accent-color: var(--terracotta); margin-top: 6px;
+    }
+    .slider-val {
+      font-family: var(--font-display); font-size: 14px; font-weight: 600;
+      color: var(--ink); min-width: 40px; text-align: right;
+    }
+    .wi-compare {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 1.25rem;
+    }
+    .wi-card { border-radius: var(--r-md); padding: 1rem 1.1rem; }
+    .wi-card.before { background: var(--card-soft); }
+    .wi-card.after { background: var(--olive-soft); }
+    .wi-card-lbl {
+      font-family: var(--font-body); font-size: 10px;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--ink-muted); margin-bottom: 6px;
+    }
+    .wi-card.after .wi-card-lbl { color: var(--olive); }
+    .wi-card-val {
+      font-family: var(--font-display); font-size: 24px; font-weight: 600;
+      color: var(--ink); line-height: 1.1;
+    }
+    .wi-card.after .wi-card-val { color: var(--olive); }
+    .wi-savings {
+      text-align: center; padding: 1.25rem;
+      background: var(--ink); color: var(--paper);
+      border-radius: var(--r-md); margin-top: 0.85rem;
+    }
+    .wi-savings-lbl {
+      font-family: var(--font-body); font-size: 11px;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--mustard); margin-bottom: 4px;
+    }
+    .wi-savings-val {
+      font-family: var(--font-display); font-size: 32px; font-weight: 700;
+      color: var(--paper); line-height: 1;
+    }
+    .wi-savings-sub {
+      font-family: var(--font-body); font-size: 11px;
+      color: rgba(247,240,225,0.7); margin-top: 6px;
+    }
+
+    /* Perspective callout */
+    .perspective {
+      background: var(--olive-soft); border-radius: var(--r-md);
+      padding: 1.25rem 1.5rem; margin-bottom: 1.25rem;
+    }
+    .perspective-title {
+      font-family: var(--font-accent); font-size: 17px; font-weight: 500;
+      font-style: italic; color: var(--olive);
+      margin-bottom: 0.5rem;
+    }
+    .perspective-text {
+      font-family: var(--font-body); font-size: 13px;
+      color: var(--ink-soft); line-height: 1.7;
+    }
+    .perspective-text strong { font-weight: 500; color: var(--ink); }
+
+    /* CTA */
+    .cta {
+      background: var(--terracotta); color: var(--paper);
+      border-radius: var(--r-lg); padding: 1.25rem;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1.25rem; flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+    .cta-text {
+      flex: 1 1 320px;
+      font-family: var(--font-body); font-size: 14px;
+      color: var(--paper); line-height: 1.6;
+    }
+    .cta-text strong { font-weight: 500; }
+    .cta-btn {
+      background: var(--paper); color: var(--ink);
+      border: none; border-radius: var(--r-md);
+      padding: 14px 24px;
+      font-family: var(--font-display); font-size: 14px; font-weight: 600;
+      cursor: pointer; white-space: nowrap;
+      text-decoration: none; display: inline-block;
+      transition: transform 0.15s, background 0.15s;
+    }
+    .cta-btn:hover { background: var(--mustard); color: var(--paper); transform: translateY(-1px); }
+
+    /* Action row (centered, larger) */
+    .actions {
+      display: flex; gap: 12px; flex-wrap: wrap;
+      margin: 1.5rem 0; justify-content: center;
+    }
+    .action-btn {
+      background: var(--paper);
+      border: 1.5px solid var(--ink);
+      border-radius: 10px;
+      padding: 14px 28px;
+      font-family: var(--font-display); font-size: 14px; font-weight: 600;
+      color: var(--ink); letter-spacing: 0.005em;
+      cursor: pointer;
+      display: inline-flex; align-items: center; gap: 10px;
+      transition: all 0.22s cubic-bezier(0.2, 0.9, 0.2, 1.05);
+    }
+    .action-btn:hover {
+      background: var(--ink); color: var(--paper);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 20px rgba(27, 27, 27, 0.14);
+    }
+    .action-btn:hover .ico { color: var(--mustard); }
+    .action-btn .ico {
+      font-family: var(--font-display); font-weight: 700;
+      color: var(--terracotta); font-size: 16px;
+      transition: color 0.22s;
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed; bottom: 2rem; left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--ink); color: var(--paper);
+      padding: 12px 20px; border-radius: var(--r-md);
+      font-family: var(--font-body); font-size: 13px;
+      opacity: 0; pointer-events: none; transition: all 0.25s;
+      z-index: 100;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* Gradient card system (results screen feature cards) */
+    .gcard {
+      position: relative;
+      overflow: hidden;
+      border-radius: 16px;
+      padding: 1.75rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--card) 0%, var(--card-soft) 100%);
+      border: 1px solid var(--line-soft);
+      box-shadow: 0 1px 2px rgba(27, 27, 27, 0.04);
+      transition: transform 0.32s cubic-bezier(0.2, 0.9, 0.2, 1.05),
+                  box-shadow 0.32s, border-color 0.2s;
+      display: flex; flex-direction: column;
+    }
+    .gcard:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 28px rgba(27, 27, 27, 0.08);
+    }
+    .gcard.alert {
+      background: linear-gradient(135deg, #F4EBD3 0%, #ECCC9C 100%);
+      border-color: rgba(161, 75, 30, 0.22);
+    }
+    .gcard.calm {
+      background: linear-gradient(135deg, #EDE9CE 0%, #D6D8AE 100%);
+      border-color: rgba(107, 111, 42, 0.22);
+    }
+    .gcard.terra {
+      background: linear-gradient(135deg, #B25522 0%, #7A3914 100%);
+      border-color: rgba(0, 0, 0, 0.15);
+      color: var(--paper);
+    }
+
+    .gcard-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(247, 240, 225, 0.65);
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      padding: 5px 11px; border-radius: 999px;
+      font-family: var(--font-body); font-size: 10.5px; font-weight: 500;
+      color: var(--ink-soft);
+      letter-spacing: 0.06em; text-transform: uppercase;
+      width: fit-content; margin-bottom: 1rem;
+      position: relative; z-index: 1;
+    }
+    .gcard-badge-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+    }
+    .gcard.terra .gcard-badge {
+      background: rgba(247, 240, 225, 0.18);
+      color: var(--paper);
+    }
+
+    .gcard-title {
+      font-family: var(--font-accent); font-style: italic;
+      font-size: 22px; font-weight: 500;
+      color: var(--ink); line-height: 1.25;
+      margin-bottom: 0.5rem;
+      position: relative; z-index: 1;
+    }
+    .gcard-title.display {
+      font-family: var(--font-display); font-style: normal;
+      font-size: 22px; font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+    .gcard.terra .gcard-title { color: var(--paper); }
+
+    .gcard-desc {
+      font-family: var(--font-body); font-size: 13px;
+      color: var(--ink-soft); line-height: 1.65;
+      max-width: 460px;
+      position: relative; z-index: 1;
+    }
+    .gcard-desc strong { color: var(--ink); font-weight: 500; }
+    .gcard.terra .gcard-desc { color: rgba(247, 240, 225, 0.85); }
+    .gcard.terra .gcard-desc strong { color: var(--paper); }
+
+    .gcard-cta {
+      display: inline-flex; align-items: center; gap: 8px;
+      margin-top: 1.25rem;
+      font-family: var(--font-display); font-size: 13px; font-weight: 600;
+      color: var(--ink); text-decoration: none;
+      position: relative; z-index: 1;
+      width: fit-content;
+      letter-spacing: 0.01em;
+    }
+    .gcard-cta-arrow {
+      display: inline-block; transition: transform 0.28s;
+      font-family: var(--font-display); font-weight: 600;
+    }
+    .gcard-cta:hover .gcard-cta-arrow { transform: translateX(4px); }
+    .gcard.terra .gcard-cta {
+      color: var(--paper);
+      background: var(--paper);
+      color: var(--ink);
+      padding: 11px 20px; border-radius: var(--r-md);
+      font-weight: 600;
+    }
+    .gcard.terra .gcard-cta:hover { background: var(--mustard); }
+
+    /* Decorative watermark (replaces the React/framer image) */
+    .gcard-mark {
+      position: absolute; right: -12px; bottom: -28px;
+      font-family: var(--font-display); font-weight: 700;
+      font-size: 180px; line-height: 1;
+      letter-spacing: -0.06em;
+      color: var(--ink); opacity: 0.06;
+      pointer-events: none;
+      transition: transform 0.45s cubic-bezier(0.2, 0.9, 0.2, 1.05);
+    }
+    .gcard:hover .gcard-mark { transform: scale(1.08) rotate(4deg); }
+    .gcard.terra .gcard-mark { color: var(--paper); opacity: 0.08; }
+
+    /* Pair container: two gcards side by side on the results screen */
+    .gcard-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .gcard-pair .gcard { margin-bottom: 0; height: 100%; }
+    @media (max-width: 720px) {
+      .gcard-pair { grid-template-columns: 1fr; gap: 0.75rem; }
+    }
+
+    /* Body row inside generational card (keeps the 3 mini stats) */
+    .gcard-row {
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px; margin-top: 1.25rem;
+      position: relative; z-index: 1;
+    }
+    .gcard-cell {
+      background: rgba(247, 240, 225, 0.6);
+      border-radius: var(--r-md);
+      padding: 0.75rem 0.85rem;
+      backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+    }
+    .gcard.terra .gcard-cell { background: rgba(247, 240, 225, 0.14); }
+    .gcard-cell-val {
+      font-family: var(--font-display); font-size: 18px; font-weight: 600;
+      color: var(--terracotta-deep); line-height: 1.1;
+    }
+    .gcard.terra .gcard-cell-val { color: var(--mustard); }
+    .gcard-cell-lbl {
+      font-family: var(--font-body); font-size: 9.5px;
+      color: var(--ink-muted); letter-spacing: 0.06em;
+      text-transform: uppercase; margin-top: 4px;
+    }
+    .gcard.terra .gcard-cell-lbl { color: rgba(247, 240, 225, 0.65); }
+
+    /* Subtle gradient + hover lift for the small metric cards too */
+    .metric {
+      background: linear-gradient(135deg, var(--card) 0%, var(--card-soft) 100%);
+      transition: transform 0.22s, box-shadow 0.22s;
+    }
+    .metric:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(27, 27, 27, 0.05);
+    }
+
+    /* Result hero gets the watermark hover animation too */
+    .result-hero { transition: transform 0.32s, box-shadow 0.32s; }
+    .result-hero::before { transition: transform 0.45s cubic-bezier(0.2, 0.9, 0.2, 1.05); }
+    .result-hero:hover::before { transform: scale(1.08) rotate(3deg); top: -12px; }
+
+    @media (max-width: 640px) {
+      .gcard { padding: 1.25rem; }
+      .gcard-mark { font-size: 130px; right: -8px; bottom: -20px; }
+      .gcard-row { grid-template-columns: 1fr; gap: 6px; }
+      .gcard-title, .gcard-title.display { font-size: 19px; }
+    }
+
+    /* Methodology */
+    .meth {
+      margin-top: 1rem; padding: 1rem 1.25rem;
+      border: 1px dashed var(--line); border-radius: var(--r-md);
+      background: var(--card);
+    }
+    .meth summary {
+      cursor: pointer; font-family: var(--font-display);
+      font-size: 13px; font-weight: 500; color: var(--ink-soft);
+      list-style: none;
+    }
+    .meth summary::-webkit-details-marker { display: none; }
+    .meth summary::before { content: '+ '; color: var(--terracotta); font-weight: 600; }
+    .meth[open] summary::before { content: '− '; }
+    .meth-body {
+      margin-top: 0.85rem; font-family: var(--font-body); font-size: 12px;
+      color: var(--ink-soft); line-height: 1.7;
+    }
+    .meth-body p { margin-bottom: 0.6rem; }
+    .meth-body strong { color: var(--ink); font-weight: 500; }
+    .meth-note {
+      margin-top: 0.65rem; color: var(--ink-muted);
+      font-size: 11px; font-style: italic;
+    }
+
+    /* Buttons / nav */
+    .nav-row {
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 12px; margin-top: 1.25rem;
+      padding-top: 1rem; border-top: 1px dashed var(--line);
+    }
+    .btn-primary {
+      background: var(--terracotta); color: var(--paper);
+      border: none; border-radius: var(--r-md);
+      padding: 13px 26px;
+      font-family: var(--font-display); font-size: 14px; font-weight: 600;
+      cursor: pointer; transition: all 0.15s;
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-primary:hover { background: var(--terracotta-deep); transform: translateY(-1px); }
+    .btn-primary.btn-lg { padding: 16px 32px; font-size: 16px; }
+    .btn-ghost {
+      background: transparent; color: var(--ink-soft);
+      border: 1px solid var(--line); border-radius: var(--r-md);
+      padding: 13px 22px;
+      font-family: var(--font-display); font-size: 14px; font-weight: 500;
+      cursor: pointer; transition: all 0.15s;
+    }
+    .btn-ghost:hover { border-color: var(--ink); color: var(--ink); }
+    .btn-ghost:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    .start-over-row {
+      text-align: center; margin-top: 2.5rem;
+    }
+    .start-over {
+      font-family: var(--font-body); font-size: 12px;
+      color: var(--ink-muted); text-decoration: none;
+      border-bottom: 1px dotted var(--line);
+      padding-bottom: 2px; cursor: pointer;
+      background: none; border-top: none; border-left: none; border-right: none;
+    }
+    .start-over:hover { color: var(--ink); border-bottom-color: var(--ink-muted); }
+
+    /* Footer shows on welcome + results, hides on the three input steps */
+    body:not([data-screen="welcome"]):not([data-screen="results"]) .foot { display: none; }
+    .foot {
+      margin-top: 2rem; padding-top: 1.25rem;
+      border-top: 1px dashed var(--line);
+      text-align: center;
+    }
+    .foot-mark {
+      font-family: var(--font-display); font-weight: 700;
+      letter-spacing: 0.04em; color: var(--ink); font-size: 14px;
+      margin-bottom: 4px;
+    }
+    .foot-tag {
+      font-family: var(--font-accent); font-style: italic;
+      font-size: 13px; color: var(--ink-soft); margin-bottom: 1rem;
+    }
+    .foot-line {
+      font-family: var(--font-body); font-size: 11px;
+      color: var(--ink-muted); line-height: 1.7;
+      max-width: 540px; margin: 0 auto;
+    }
+
+    /* Floating mobile CTA bar (only on results) */
+    .float-cta { display: none; }
+    .float-cta-num {
+      font-family: var(--font-display); font-size: 13px; font-weight: 600;
+    }
+    .float-cta-num small {
+      display: block; font-family: var(--font-body); font-size: 10px;
+      color: var(--mustard); letter-spacing: 0.06em;
+      text-transform: uppercase; font-weight: 400; margin-bottom: 2px;
+    }
+    .float-cta a {
+      background: var(--mustard); color: var(--ink);
+      padding: 10px 16px; border-radius: var(--r-md);
+      font-family: var(--font-display); font-size: 13px; font-weight: 600;
+      text-decoration: none; white-space: nowrap;
+    }
+
+    /* Tablet */
+    @media (max-width: 880px) {
+      .page { padding: 2rem 1.25rem 6rem; }
+      .panel { padding: 1.5rem; }
+    }
+
+    /* Mobile */
+    @media (max-width: 640px) {
+      body { font-size: 14px; }
+      .topbar { padding: 0.85rem 1rem 0; }
+      .topbar-tag { display: none; }
+      .page { padding: 0.85rem 1rem 1.25rem; }
+      body[data-screen="results"] .page { padding-bottom: 6rem; }
+      .panel { padding: 1rem; }
+      /* Workforce inputs stay 2-col on mobile, 3rd item spans both */
+      .grid-3 { grid-template-columns: 1fr 1fr; gap: 8px; }
+      .grid-3 > *:nth-child(3) { grid-column: 1 / -1; }
+      .grid-2 { grid-template-columns: 1fr 1fr; gap: 8px; }
+      /* Signals, metrics, gen, wi go single column on mobile */
+      .signal-grid, .metric-grid, .gen-row, .wi-compare { grid-template-columns: 1fr; }
+      .signal-grid { gap: 6px; }
+      .sig { padding: 0.7rem 0.85rem; gap: 10px; }
+      .sig-icon { width: 30px; height: 30px; }
+      .sig-icon svg { width: 16px; height: 16px; }
+      .sig-title { font-size: 12.5px; line-height: 1.3; margin-bottom: 2px; }
+      .sig-desc { font-size: 10px; line-height: 1.4; }
+      .sig-cost { font-size: 11.5px; padding-top: 5px; }
+      .result-hero { padding: 1.25rem 1.1rem; }
+      .result-hero::before { font-size: 100px; }
+      .gen { padding: 1.1rem; }
+      .cta { padding: 1.1rem; flex-direction: column; align-items: stretch; }
+      .cta-btn { width: 100%; text-align: center; }
+      .pills { gap: 4px; }
+      .pill { font-size: 11px; padding: 7px 11px; }
+      input[type="number"] { font-size: 16px; padding: 9px 12px; }
+      .actions { justify-content: stretch; }
+      .action-btn { flex: 1; justify-content: center; }
+      .toast { bottom: 5rem; }
+      .nav-row { gap: 10px; margin-top: 1rem; padding-top: 0.85rem; }
+      .btn-primary, .btn-ghost { padding: 11px 16px; font-size: 13px; }
+      .btn-primary.btn-lg { padding: 13px 22px; font-size: 14px; }
+      .welcome { padding: 0; }
+      .welcome-mark { margin-bottom: 1.25rem; gap: 0.85rem; }
+      .welcome-monogram { width: 52px; height: 52px; font-size: 19px; }
+      .welcome-mark-tag { font-size: 13px; }
+      .welcome-headline { font-size: 24px; line-height: 1.1; margin-bottom: 0.85rem; }
+      .welcome-lead { font-size: 12.5px; margin-bottom: 1rem; }
+      .welcome-meta { gap: 0.85rem; margin-bottom: 1rem; font-size: 10px; }
+      .welcome-meta span::before { font-size: 16px; margin-right: 4px; }
+      .welcome-actions { margin-bottom: 1.25rem; }
+      .welcome-actions .secondary-note { display: none; }
+      .brand-quote { font-size: 13px; padding-left: 0.85rem; }
+      .progress-wrap { margin-bottom: 0.85rem; padding-bottom: 0.65rem; }
+      .screen-header { margin-bottom: 0.75rem; }
+      .field-label { font-size: 11px; margin-bottom: 4px; }
+      .skip-hint { font-size: 9px; }
+      body[data-screen="results"] .float-cta {
+        display: flex; position: fixed; bottom: 0; left: 0; right: 0;
+        background: var(--ink); color: var(--paper);
+        padding: 0.85rem 1rem;
+        box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
+        z-index: 50;
+        align-items: center; justify-content: space-between; gap: 0.85rem;
+      }
+    }
+
+    /* Print as PDF (shows all input + results screens together) */
+    @media print {
+      @page { margin: 16mm 14mm; size: letter; }
+      body { background: white; color: black; font-size: 10.5pt; }
+      .topbar, .float-cta, .gcard.terra, .actions, .start-over-row,
+      .progress-wrap, .nav-row, .toast, .welcome-actions, .brand-quote { display: none !important; }
+      .gcard {
+        background: white !important; border: 1px solid #ccc !important;
+        box-shadow: none !important; padding: 12pt !important;
+        page-break-inside: avoid; transform: none !important;
+      }
+      .gcard.alert { border: 1.5px solid black !important; }
+      .gcard-mark { display: none !important; }
+      .gcard-title, .gcard-desc, .gcard-cell-val { color: black !important; }
+      .gcard-badge { background: #f5f5f5 !important; color: black !important; }
+      .gcard-cell { background: #f5f5f5 !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+      .screen { display: block !important; animation: none; }
+      .screen[data-screen="welcome"] { display: none !important; }
+      .screen-header { margin-bottom: 0.6rem; }
+      .screen-eyebrow { color: black !important; }
+      .screen-headline { font-size: 14pt !important; }
+      .screen-quote { font-size: 9pt !important; color: #666 !important; }
+      .meth { border: 1px solid #ccc; padding: 10pt; background: white; page-break-inside: avoid; }
+      .meth summary { display: none; }
+      .meth-body { display: block !important; margin-top: 0; }
+      .panel {
+        background: white; border: 1px solid #ccc; padding: 10pt;
+        margin-bottom: 8pt; page-break-inside: avoid; box-shadow: none;
+      }
+      .result-hero {
+        background: white !important; color: black !important;
+        border: 2px solid black; padding: 14pt; page-break-inside: avoid;
+      }
+      .result-hero::before { display: none; }
+      .result-hero-value { color: black !important; font-size: 28pt !important; }
+      .result-hero-label, .result-hero-caption { color: black !important; }
+      .year-toggle { display: none; }
+      .gen { border: 1.5px solid black; background: white; padding: 12pt; page-break-inside: avoid; }
+      .gen-cell { background: #f5f5f5; }
+      .gen-cell-val { color: black !important; }
+      .insight, .warn { background: #f5f5f5 !important; color: black !important; border-color: #999 !important; }
+      .pills .pill:not(.on) { display: none; }
+      .pills .pill.on {
+        background: white !important; border: 1px solid black !important;
+        color: black !important; font-weight: 500;
+      }
+      .sig:not(.on) { display: none; }
+      .sig.on {
+        background: #f5f5f5 !important; border: 1px solid #888 !important;
+        page-break-inside: avoid;
+      }
+      .sig.on .sig-lbl, .sig.on .sig-sub { color: black !important; }
+      .signal-grid { gap: 4pt; }
+      .bar-track, .signal-counter { display: none; }
+      .signal-meta { display: block; }
+      input[type="number"] {
+        border: none !important; background: transparent !important;
+        padding: 0 !important; font-weight: 600 !important;
+        color: black !important; font-family: var(--font-display);
+        -webkit-appearance: none; -moz-appearance: textfield; appearance: none;
+      }
+      input[type="number"]::-webkit-outer-spin-button,
+      input[type="number"]::-webkit-inner-spin-button { display: none; -webkit-appearance: none; }
+      .input-prefix { color: black !important; }
+      .slider-row, .wi-title, .wi-desc { display: none; }
+      .wi-card.before, .wi-card.after { background: #f5f5f5 !important; border: 1px solid #ccc; }
+      .wi-card-val, .wi-card-lbl { color: black !important; }
+      .wi-savings { background: white !important; border: 1.5px solid black; color: black !important; }
+      .wi-savings-val, .wi-savings-lbl, .wi-savings-sub { color: black !important; }
+      .metric { background: #f5f5f5 !important; border: 1px solid #ccc !important; }
+      .metric-val { color: black !important; }
+      .screen[data-screen="results"] { page-break-before: always; }
+      body::before {
+        content: 'JULIANNA SYSTEMS · Turnover and Burnout Diagnostic';
+        display: block; font-family: 'Space Grotesk', sans-serif;
+        font-weight: 700; font-size: 10pt; letter-spacing: 0.06em;
+        margin-bottom: 6mm; padding-bottom: 3mm;
+        border-bottom: 1px solid black;
+      }
+      body::after {
+        content: 'structure that bends.  ·  juliannasystems';
+        display: block; font-family: 'Fraunces', serif;
+        font-style: italic; font-size: 9pt;
+        margin-top: 6mm; padding-top: 3mm;
+        border-top: 1px solid black; text-align: center;
+      }
+    }
+  </style>
+</head>
+<body data-screen="welcome">
+  <header class="topbar">
+    <button class="monogram" type="button" onclick="goTo('welcome')">
+      <span class="monogram-mark">JS</span>
+      <span class="monogram-text">@JULIANNA SYSTEMS</span>
+    </button>
+    <span class="topbar-tag">structure that bends.</span>
+  </header>
+
+  <main class="page" id="top">
+
+    <!-- Progress bar (shown only on input screens) -->
+    <div class="progress-wrap" id="progress-wrap" style="display:none;">
+      <div class="progress-meta">
+        <span id="progress-label"><strong>Step 1</strong> of 3</span>
+        <span id="progress-name">Plan</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+    </div>
+
+    <!-- Screen 0: Welcome -->
+    <section class="screen active" data-screen="welcome">
+      <div class="welcome">
+        <div class="welcome-mark">
+          <div class="welcome-monogram">J/S</div>
+          <div>
+            <p class="welcome-mark-text">@JULIANNA SYSTEMS</p>
+            <p class="welcome-mark-tag">structure that bends.</p>
+          </div>
+        </div>
+
+        <h1 class="welcome-headline">What is turnover and burnout actually costing your business?</h1>
+
+        <p class="welcome-lead">A free 3 minute diagnostic for leaders in legacy and emerging industries facing the generational workforce shift. See your real annual cost, your projected exposure over the next decade, and what a structured wellness program could realistically save you.</p>
+
+        <div class="welcome-meta">
+          <span>3 minute diagnostic</span>
+          <span>No email required</span>
+          <span>Real numbers, not estimates</span>
+        </div>
+
+        <div class="welcome-actions">
+          <button class="btn-primary btn-lg" type="button" onclick="next()">Begin diagnostic →</button>
+          <span class="secondary-note">3 short steps</span>
+        </div>
+
+        <p class="brand-quote">
+          "We build systems that work in the real world, not just the ideal one."
+          <span class="brand-quote-attr">Julianna Systems</span>
+        </p>
+      </div>
+    </section>
+
+    <!-- Screen 1: Context -->
+    <section class="screen" data-screen="context">
+      <div class="screen-header">
+        <p class="screen-eyebrow"><span class="step-num">01</span> · Plan</p>
+        <h2 class="screen-headline">Set the context.</h2>
+        <p class="screen-quote">where you stand changes what we are looking at.</p>
+      </div>
+
+      <div class="panel">
+        <div class="pill-group">
+          <p class="pill-group-label">Industry</p>
+          <div class="pills" id="ind-row">
+            <button class="pill on" data-m="1.5">Industrial / Manufacturing</button>
+            <button class="pill" data-m="1.5">Construction &amp; trades</button>
+            <button class="pill" data-m="1.6">Supply chain &amp; logistics</button>
+            <button class="pill" data-m="1.7">Energy &amp; utilities</button>
+            <button class="pill" data-m="1.8">Engineering</button>
+            <button class="pill" data-m="1.8">Tech &amp; SaaS</button>
+            <button class="pill" data-m="1.8">Med tech &amp; healthcare</button>
+            <button class="pill" data-m="1.7">HR &amp; recruitment</button>
+          </div>
+        </div>
+
+        <div class="pill-group">
+          <p class="pill-group-label">Your role</p>
+          <div class="pills" id="role-row">
+            <button class="pill on" data-role="owner">Owner / CEO</button>
+            <button class="pill" data-role="csuite">C-suite / VP</button>
+            <button class="pill" data-role="director">Director / Manager</button>
+            <button class="pill" data-role="hr">HR / People Ops</button>
+            <button class="pill" data-role="ic">Individual contributor</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-row">
+        <button class="btn-ghost" type="button" onclick="back()">← Back</button>
+        <button class="btn-primary" type="button" onclick="next()">Continue →</button>
+      </div>
+    </section>
+
+    <!-- Screen 2: Workforce -->
+    <section class="screen" data-screen="workforce">
+      <div class="screen-header">
+        <p class="screen-eyebrow"><span class="step-num">02</span> · Adapt</p>
+        <h2 class="screen-headline">Your workforce.</h2>
+        <p class="screen-quote">the numbers that already exist in your business.</p>
+      </div>
+
+      <div class="panel">
+        <div class="grid-3">
+          <div>
+            <label class="field-label" for="n-total">Total employees</label>
+            <input type="number" id="n-total" value="50" min="1">
+          </div>
+          <div>
+            <label class="field-label" for="n-left1">Left in past year</label>
+            <input type="number" id="n-left1" value="6" min="0">
+          </div>
+          <div>
+            <label class="field-label" for="n-left5">Left in past 5 years</label>
+            <input type="number" id="n-left5" value="22" min="0">
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div>
+            <label class="field-label" for="n-sal">Average annual salary</label>
+            <div class="input-wrap">
+              <span class="input-prefix">$</span>
+              <input type="number" id="n-sal" class="with-prefix" value="65000" min="0" step="1000">
+            </div>
+          </div>
+          <div>
+            <label class="field-label" for="n-fill">Avg. months to fill a role</label>
+            <input type="number" id="n-fill" value="3" min="1" max="24">
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div>
+            <label class="field-label" for="n-sick">
+              <span>Avg. sick days per employee / year</span>
+              <span class="skip-hint">approximate is fine</span>
+            </label>
+            <input type="number" id="n-sick" value="8" min="0">
+          </div>
+          <div>
+            <label class="field-label" for="n-mgr">
+              <span>Manager hrs/week on disengagement</span>
+              <span class="skip-hint">approximate is fine</span>
+            </label>
+            <input type="number" id="n-mgr" value="5" min="0">
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-row">
+        <button class="btn-ghost" type="button" onclick="back()">← Back</button>
+        <button class="btn-primary" type="button" onclick="next()">Continue →</button>
+      </div>
+    </section>
+
+    <!-- Screen 3: Signals -->
+    <section class="screen" data-screen="signals">
+      <div class="screen-header">
+        <p class="screen-eyebrow"><span class="step-num">03</span> · Build</p>
+        <h2 class="screen-headline">Hidden burnout signals.</h2>
+        <p class="screen-quote">the patterns that do not show up in spreadsheets.</p>
+      </div>
+
+      <div class="panel">
+        <div class="signal-meta">
+          <p class="signal-meta-text">Select all that match what you see in your organization.</p>
+          <span class="signal-counter">
+            <span id="sig-count">0 / 8</span>
+            <span class="added" id="sig-added"></span>
+          </span>
+        </div>
+
+        <div class="signal-grid" id="sig-grid">
+          <div class="sig" data-c="0.08" data-id="s1">
+            <div class="sig-icon mustard">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6"/><path d="M22 11h-6"/></svg>
+            </div>
+            <div class="sig-body">
+              <p class="sig-title">Employees rarely refer candidates</p>
+              <p class="sig-desc">Low advocacy means a damaged employer brand with the next generation of talent.</p>
+            </div>
+            <span class="sig-cost">+8%</span>
+          </div>
+          <div class="sig" data-c="0.06" data-id="s2">
+            <div class="sig-icon mustard">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <div class="sig-body">
+              <p class="sig-title">Negative reviews on Glassdoor / Indeed</p>
+              <p class="sig-desc">Gen Z researches employers before applying. Bad reviews cut your pipeline.</p>
+            </div>
+            <span class="sig-cost">+6%</span>
+          </div>
+          <div class="sig" data-c="0.07" data-id="s3">
+            <div class="sig-icon terra">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/><path d="m9.5 14.5 5 5"/><path d="m14.5 14.5-5 5"/></svg>
+            </div>
+            <div class="sig-body">
+              <p class="sig-title">Missed deadlines or client deliverables</p>
+              <p class="sig-desc">Disengaged teams quietly erode the reliability your reputation is built on.</p>
+            </div>
+            <span class="sig-cost">+7%</span>
+          </div>
+          <div class="sig" data-c="0.09" data-id="s4">
+            <div class="sig-icon terra">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/><polyline points="16 17 22 17 22 11"/></svg>
+            </div>
+            <div class="sig-body">
+              <p class="sig-title">Senior staff absorbing unfilled workload</p>
+              <p class="sig-desc">Overloading your best people is the fastest path to losing them too.</p>
+            </div>
+            <span class="sig-cost">+9%</span>
+          </div>
+          <div class="sig" data-c="0.10" data-id="s5">
+            <div class="sig-icon terra">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            </div>
+            <div class="sig-body">
+              <p class="sig-title">Critical knowledge walks out with leavers</p>
+              <p class="sig-desc">Process, client relationships, institutional memory. The silent cost no spreadsheet captures.</p>
+            </div>
+            <span class="sig-cost">+10%</span>
+          </div>
+          <div class="sig" data-c="0.05" data-id="s6">
+            <div class="sig-icon olive">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <div class="sig-body">
+              <p class="sig-title">Tension between old guard and newer staff</p>
+              <p class="sig-desc">Generational culture friction drives out exactly who you need to carry the business forward.</p>
+            </div>
+            <span class="sig-cost">+5%</span>
+          </div>
+          <div class="sig" data-c="0.06" data-id="s7">
+            <div class="sig-icon olive">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" y1="2" x2="22" y2="22"/></svg>
+            </div>
+            <div class="sig-body">
+              <p class="sig-title">Low participation in company initiatives</p>
+              <p class="sig-desc">Disengagement reliably precedes departure. This is an early warning signal.</p>
+            </div>
+            <span class="sig-cost">+6%</span>
+          </div>
+          <div class="sig" data-c="0.08" data-id="s8">
+            <div class="sig-icon olive">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+            </div>
+            <div class="sig-body">
+              <p class="sig-title">Managers or team leads frustrated or gone</p>
+              <p class="sig-desc">One manager leaving can trigger a wave of team departures.</p>
+            </div>
+            <span class="sig-cost">+8%</span>
+          </div>
+        </div>
+
+        <div class="bar-track"><div class="bar-fill" id="bar-fill" style="width:0%"></div></div>
+      </div>
+
+      <div class="nav-row">
+        <button class="btn-ghost" type="button" onclick="back()">← Back</button>
+        <button class="btn-primary" type="button" onclick="next()">See your results →</button>
+      </div>
+    </section>
+
+    <!-- Screen 4: Results -->
+    <section class="screen" data-screen="results">
+      <div class="screen-header">
+        <p class="screen-eyebrow"><span class="step-num">04</span> · Review</p>
+        <h2 class="screen-headline">Here is what the numbers say.</h2>
+        <p class="screen-quote">what you do with this is the next decision.</p>
+      </div>
+
+      <!-- Hero result -->
+      <section class="result-hero" id="result-zone">
+        <div class="result-hero-top">
+          <p class="result-hero-label" id="result-label">10 year cost of doing nothing</p>
+          <div class="year-toggle" id="year-toggle" data-yrs-active="10">
+            <span class="glass-distort" aria-hidden="true"></span>
+            <button class="year-btn on" type="button" data-yrs="10">10 yr</button>
+            <button class="year-btn" type="button" data-yrs="20">20 yr</button>
+          </div>
+        </div>
+        <p class="result-hero-value" id="r-gen10">$0</p>
+        <p class="result-hero-caption" id="result-caption">Compounded across the next decade as the workforce shifts generationally and your existing burnout drivers go unaddressed.</p>
+      </section>
+
+      <div class="insight" id="insight-box">Fill in your details to see your personalized cost picture.</div>
+
+      <div class="metric-grid">
+        <div class="metric"><p class="metric-lbl">Cost per departure</p><p class="metric-val" id="r-cpe">$0</p><p class="metric-sub">Recruiting, onboarding, lost productivity</p></div>
+        <div class="metric"><p class="metric-lbl">Annual turnover cost</p><p class="metric-val alert" id="r-c1">$0</p><p class="metric-sub" id="r-c1-sub">0 departures this year</p></div>
+        <div class="metric"><p class="metric-lbl">5 year turnover cost</p><p class="metric-val" id="r-c5">$0</p><p class="metric-sub">Cumulative spend</p></div>
+        <div class="metric"><p class="metric-lbl">Annual turnover rate</p><p class="metric-val" id="r-tr">0%</p><p class="metric-sub">Industry avg. 15 to 22%</p></div>
+        <div class="metric"><p class="metric-lbl">Productivity gap</p><p class="metric-val" id="r-prod">$0</p><p class="metric-sub">Lost output during vacancies</p></div>
+        <div class="metric"><p class="metric-lbl">Hidden burnout cost</p><p class="metric-val warm" id="r-burn">$0</p><p class="metric-sub">Selected signals × payroll</p></div>
+      </div>
+
+      <section class="gcard alert">
+        <span class="gcard-badge">
+          <span class="gcard-badge-dot" style="background: var(--terracotta);"></span>
+          The generational shift
+        </span>
+        <p class="gcard-title">Millennials are aging into leadership. Gen Z and Alpha are setting the new baseline.</p>
+        <p class="gcard-desc">The businesses that survive the generational shift are investing in culture now, before it becomes table stakes they can no longer meet. Here is what inaction compounds to.</p>
+        <div class="gcard-row">
+          <div class="gcard-cell"><p class="gcard-cell-val" id="r-gann">$0</p><p class="gcard-cell-lbl">Annual bleed rate</p></div>
+          <div class="gcard-cell"><p class="gcard-cell-val" id="r-g5">$0</p><p class="gcard-cell-lbl">5 year projection</p></div>
+          <div class="gcard-cell"><p class="gcard-cell-val" id="r-g10">$0</p><p class="gcard-cell-lbl" id="r-g10-lbl">10 year (×10)</p></div>
+        </div>
+        <span class="gcard-mark" id="gen-mark">×10</span>
+      </section>
+
+      <div class="warn"><strong>What this really means:</strong> <span id="warn-txt">Your numbers will appear here.</span></div>
+
+      <section class="panel">
+        <p class="wi-title">What if you fixed this?</p>
+        <p class="wi-desc">Most organizations can realistically reduce turnover by 20 to 40% with a structured wellness and retention program. Move the sliders to model what that improvement looks like for your bottom line.</p>
+
+        <div class="slider-row">
+          <div>
+            <label for="sl-ret">Reduction in annual turnover</label>
+            <input class="slider-input" type="range" id="sl-ret" min="10" max="60" value="30" step="5">
+          </div>
+          <span class="slider-val" id="sl-ret-out">30%</span>
+        </div>
+        <div class="slider-row">
+          <div>
+            <label for="sl-burn">Reduction in burnout costs</label>
+            <input class="slider-input" type="range" id="sl-burn" min="10" max="70" value="40" step="5">
+          </div>
+          <span class="slider-val" id="sl-burn-out">40%</span>
+        </div>
+        <div class="slider-row">
+          <div>
+            <label for="sl-prod">Productivity gain from re-engagement</label>
+            <input class="slider-input" type="range" id="sl-prod" min="5" max="30" value="15" step="5">
+          </div>
+          <span class="slider-val" id="sl-prod-out">15%</span>
+        </div>
+
+        <div class="wi-compare">
+          <div class="wi-card before">
+            <p class="wi-card-lbl">Today's annual cost</p>
+            <p class="wi-card-val" id="wi-before">$0</p>
+          </div>
+          <div class="wi-card after">
+            <p class="wi-card-lbl">After improvement</p>
+            <p class="wi-card-val" id="wi-after">$0</p>
+          </div>
+        </div>
+        <div class="wi-savings">
+          <p class="wi-savings-lbl">Annual savings</p>
+          <p class="wi-savings-val" id="wi-save">$0</p>
+          <p class="wi-savings-sub">Over <span id="wi-save-yrs">10</span> years that is <span id="wi-save10">$0</span> returned to your business.</p>
+        </div>
+      </section>
+
+      <div class="actions">
+        <button class="action-btn" type="button" onclick="shareResults()"><span class="ico">↗</span>Share these results</button>
+        <button class="action-btn" type="button" onclick="downloadPDF()"><span class="ico">↓</span>Download as PDF</button>
+      </div>
+
+      <div class="gcard-pair">
+        <section class="gcard calm">
+          <span class="gcard-badge">
+            <span class="gcard-badge-dot" style="background: var(--olive);"></span>
+            Your vantage
+          </span>
+          <p class="gcard-title">You see one slice.</p>
+          <p class="gcard-desc" id="perspective-text">Your team sees gaps you cannot. The <strong>Burnout Audit</strong> maps every level.</p>
+          <span class="gcard-mark">JS</span>
+        </section>
+
+        <section class="gcard terra">
+          <span class="gcard-badge">
+            <span class="gcard-badge-dot" style="background: var(--mustard);"></span>
+            Next step
+          </span>
+          <p class="gcard-title display">Bring the numbers down.</p>
+          <p class="gcard-desc">Retention programs structured for legacy industries. Measurable ROI, not good intentions.</p>
+          <a class="gcard-cta" href="mailto:julianna@greycouchcounselling.com?subject=Reducing%20turnover%20and%20burnout%20at%20my%20organization&body=Hi%20Julianna%2C%0A%0AI%20just%20worked%20through%20the%20turnover%20and%20burnout%20calculator%20and%20I%27d%20like%20to%20talk%20about%20what%20it%20would%20take%20to%20bring%20these%20numbers%20down.%0A%0A">
+            Book a consult <span class="gcard-cta-arrow">→</span>
+          </a>
+          <span class="gcard-mark">→</span>
+        </section>
+      </div>
+
+      <details class="meth">
+        <summary>How these numbers are calculated</summary>
+        <div class="meth-body">
+          <p><strong>Cost per departed employee:</strong> Average annual salary multiplied by an industry-specific multiplier ranging from 1.5× to 1.8×. The multiplier reflects role complexity, ramp-up time, recruiting and onboarding costs, and lost productivity. Specifically: 1.5× for industrial, manufacturing, construction, and skilled trades; 1.6× for supply chain and logistics; 1.7× for energy, utilities, HR, and recruitment; 1.8× for engineering, tech, SaaS, and med tech. These ranges are consistent with widely cited turnover-cost research from SHRM and similar HR research bodies.</p>
+          <p><strong>Annual turnover rate:</strong> Departures in the past year divided by total employees, expressed as a percentage. The 15 to 22% benchmark reflects typical ranges across industrial, construction, supply chain, energy, tech, healthcare, and recruitment sectors.</p>
+          <p><strong>Productivity gap:</strong> Lost output during vacancy periods, calculated as (monthly salary × months to fill × number of departures).</p>
+          <p><strong>Hidden burnout cost:</strong> Each selected signal carries a 5 to 10% cost multiplier against total payroll, layered with a sick-day cost (2 to 4% of payroll) and the cost of manager hours spent on disengagement.</p>
+          <p><strong>10 year generational projection:</strong> Current annual cost × 10. Assumes the underlying drivers of turnover and burnout are not addressed and are compounded by generational workforce change.</p>
+          <p><strong>Savings projections:</strong> Based on outcome ranges typically reported by structured workplace wellness programs (20 to 40% turnover reduction, 30 to 50% burnout cost reduction, 5 to 30% productivity gain from re-engagement).</p>
+          <p class="meth-note">Numbers are directional. Designed to surface the scale of the problem, not to replace a formal audit.</p>
+        </div>
+      </details>
+
+      <div class="start-over-row">
+        <button class="start-over" type="button" onclick="goTo('context')">← Edit your responses</button>
+      </div>
+    </section>
+
+    <footer class="foot">
+      <p class="foot-mark">@JULIANNA SYSTEMS</p>
+      <p class="foot-tag">structure that bends.</p>
+      <p class="foot-line">Calculator estimates use industry-validated multipliers (1.5× to 1.8× salary depending on industry complexity). Results are directional. Book a consult for an audit specific to your business.</p>
+    </footer>
+  </main>
+
+  <!-- Floating mobile CTA (only on results screen) -->
+  <div class="float-cta" id="float-cta">
+    <div class="float-cta-num">
+      <small id="float-lbl">10 yr cost</small>
+      <span id="float-num">$0</span>
+    </div>
+    <a href="mailto:julianna@greycouchcounselling.com?subject=Reducing%20turnover%20and%20burnout%20at%20my%20organization">Book a consult</a>
+  </div>
+
+  <!-- Toast notification -->
+  <div class="toast" id="toast">Link copied to clipboard</div>
+
+  <!-- Liquid glass distortion filter (used by year toggle) -->
+  <svg width="0" height="0" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
+    <defs>
+      <filter id="radio-glass" x="0%" y="0%" width="100%" height="100%" color-interpolation-filters="sRGB">
+        <feTurbulence type="fractalNoise" baseFrequency="0.05 0.05" numOctaves="1" seed="1" result="turbulence" />
+        <feGaussianBlur in="turbulence" stdDeviation="2" result="blurredNoise" />
+        <feDisplacementMap in="SourceGraphic" in2="blurredNoise" scale="30" xChannelSelector="R" yChannelSelector="B" result="displaced" />
+        <feGaussianBlur in="displaced" stdDeviation="2" result="finalBlur" />
+        <feComposite in="finalBlur" in2="finalBlur" operator="over" />
+      </filter>
+    </defs>
+  </svg>
+
+  <script>
+    const fm = n => '$' + Math.round(n).toLocaleString();
+    const pc = n => (Math.round(n * 10) / 10) + '%';
+    let mult = 1.5;
+    let role = 'owner';
+    let sigs = new Set();
+    let years = 10;
+    let annualTotal = 0;
+    let burnoutCost = 0;
+    let prodCost = 0;
+    let cost1yr = 0;
+
+    // Wizard navigation
+    const screenOrder = ['welcome', 'context', 'workforce', 'signals', 'results'];
+    const inputScreens = ['context', 'workforce', 'signals'];
+    const stepNames = { context: 'Plan', workforce: 'Adapt', signals: 'Build' };
+
+    function goTo(name) {
+      if (!screenOrder.includes(name)) return;
+      document.body.dataset.screen = name;
+      document.querySelectorAll('.screen').forEach(s => {
+        s.classList.toggle('active', s.dataset.screen === name);
+      });
+
+      const wrap = document.getElementById('progress-wrap');
+      if (inputScreens.includes(name)) {
+        const i = inputScreens.indexOf(name);
+        wrap.style.display = 'block';
+        document.getElementById('progress-label').innerHTML = '<strong>Step ' + (i + 1) + '</strong> of ' + inputScreens.length;
+        document.getElementById('progress-name').textContent = stepNames[name];
+        document.getElementById('progress-fill').style.width = ((i + 1) / inputScreens.length * 100) + '%';
+      } else {
+        wrap.style.display = 'none';
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function next() {
+      const i = screenOrder.indexOf(document.body.dataset.screen);
+      if (i < screenOrder.length - 1) goTo(screenOrder[i + 1]);
+    }
+    function back() {
+      const i = screenOrder.indexOf(document.body.dataset.screen);
+      if (i > 0) goTo(screenOrder[i - 1]);
+    }
+
+    // Industry pills
+    document.querySelectorAll('#ind-row .pill').forEach(b => {
+      b.addEventListener('click', () => {
+        document.querySelectorAll('#ind-row .pill').forEach(x => x.classList.remove('on'));
+        b.classList.add('on');
+        mult = parseFloat(b.dataset.m);
+        calc();
+      });
+    });
+
+    // Role pills
+    document.querySelectorAll('#role-row .pill').forEach(b => {
+      b.addEventListener('click', () => {
+        document.querySelectorAll('#role-row .pill').forEach(x => x.classList.remove('on'));
+        b.classList.add('on');
+        role = b.dataset.role;
+        calc();
+      });
+    });
+
+    // Burnout signals
+    document.querySelectorAll('.sig').forEach(c => {
+      c.addEventListener('click', () => {
+        const id = c.dataset.id;
+        if (sigs.has(id)) { sigs.delete(id); c.classList.remove('on'); }
+        else { sigs.add(id); c.classList.add('on'); }
+        calc();
+      });
+    });
+
+    // Year toggle (liquid glass slider)
+    document.querySelectorAll('#year-toggle .year-btn').forEach(b => {
+      b.addEventListener('click', () => {
+        document.querySelectorAll('#year-toggle .year-btn').forEach(x => x.classList.remove('on'));
+        b.classList.add('on');
+        years = parseInt(b.dataset.yrs);
+        document.getElementById('year-toggle').dataset.yrsActive = String(years);
+        calc();
+      });
+    });
+
+    // Sliders
+    ['sl-ret','sl-burn','sl-prod'].forEach(id => {
+      document.getElementById(id).addEventListener('input', () => {
+        document.getElementById(id + '-out').textContent = document.getElementById(id).value + '%';
+        calcWhatIf();
+      });
+    });
+
+    function v(id) { return parseFloat(document.getElementById(id).value) || 0; }
+
+    function animateNumber(el, target, formatter) {
+      if (!el) return;
+      const current = parseFloat(el.dataset.curVal || 0);
+      const diff = target - current;
+      if (Math.abs(diff) < 1) {
+        el.textContent = formatter(target);
+        el.dataset.curVal = target;
+        return;
+      }
+      const start = performance.now();
+      const dur = 350;
+      function tick(now) {
+        const t = Math.min(1, (now - start) / dur);
+        const eased = 1 - Math.pow(1 - t, 3);
+        const val = current + diff * eased;
+        el.textContent = formatter(val);
+        if (t < 1) requestAnimationFrame(tick);
+        else el.dataset.curVal = target;
+      }
+      requestAnimationFrame(tick);
+    }
+
+    function calcWhatIf() {
+      const retRed = v('sl-ret') / 100;
+      const burnRed = v('sl-burn') / 100;
+      const prodGain = v('sl-prod') / 100;
+      const savedTurnover = cost1yr * retRed;
+      const savedBurnout = burnoutCost * burnRed;
+      const savedProd = prodCost * prodGain;
+      const totalSaved = savedTurnover + savedBurnout + savedProd;
+      const afterCost = Math.max(0, annualTotal - totalSaved);
+      animateNumber(document.getElementById('wi-before'), annualTotal, fm);
+      animateNumber(document.getElementById('wi-after'), afterCost, fm);
+      animateNumber(document.getElementById('wi-save'), totalSaved, fm);
+      document.getElementById('wi-save10').textContent = fm(totalSaved * years);
+      document.getElementById('wi-save-yrs').textContent = years;
+    }
+
+    function calc() {
+      const total = v('n-total');
+      const left1 = v('n-left1');
+      const left5 = v('n-left5');
+      const sal = v('n-sal');
+      const fill = v('n-fill');
+      const sick = v('n-sick');
+      const mgr = v('n-mgr');
+      const payroll = total * sal;
+
+      const cpe = sal * mult;
+      cost1yr = cpe * left1;
+      const cost5yr = cpe * left5;
+      const tr = total > 0 ? (left1 / total) * 100 : 0;
+      prodCost = (sal / 12) * fill * left1;
+
+      const sickCost = payroll * (sick > 10 ? 0.04 : 0.02);
+      const mgrCost = mgr * 52 * (sal / 2080);
+      let bm = 0;
+      document.querySelectorAll('.sig').forEach(c => { if (sigs.has(c.dataset.id)) bm += parseFloat(c.dataset.c); });
+      burnoutCost = payroll * bm + sickCost + mgrCost;
+
+      annualTotal = cost1yr + prodCost + burnoutCost;
+      const genTotal = annualTotal * years;
+
+      animateNumber(document.getElementById('r-cpe'), cpe, fm);
+      animateNumber(document.getElementById('r-c1'), cost1yr, fm);
+      document.getElementById('r-c1-sub').textContent = left1 + ' departure' + (left1 === 1 ? '' : 's') + ' this year';
+      animateNumber(document.getElementById('r-c5'), cost5yr, fm);
+      document.getElementById('r-tr').textContent = pc(tr);
+      animateNumber(document.getElementById('r-prod'), prodCost, fm);
+      animateNumber(document.getElementById('r-burn'), sigs.size > 0 ? burnoutCost : 0, fm);
+
+      animateNumber(document.getElementById('r-gann'), annualTotal, fm);
+      animateNumber(document.getElementById('r-g5'), annualTotal * 5, fm);
+      animateNumber(document.getElementById('r-g10'), genTotal, fm);
+      animateNumber(document.getElementById('r-gen10'), genTotal, fm);
+      document.getElementById('r-g10-lbl').textContent = years + ' year (×' + years + ')';
+      const genMark = document.getElementById('gen-mark');
+      if (genMark) genMark.textContent = '×' + years;
+      document.getElementById('result-label').textContent = years + ' year cost of doing nothing';
+      document.getElementById('result-caption').textContent = years === 10
+        ? 'Compounded across the next decade as the workforce shifts generationally and your existing burnout drivers go unaddressed.'
+        : 'Compounded across the next two decades as the workforce shifts generationally and your existing burnout drivers go unaddressed.';
+      document.getElementById('float-num').textContent = fm(genTotal);
+      document.getElementById('float-lbl').textContent = years + ' yr cost';
+
+      const sc = sigs.size;
+      document.getElementById('sig-count').textContent = sc + ' / 8';
+      document.getElementById('sig-added').textContent = sc > 0 ? '+ ' + fm(payroll * (() => { let b=0; document.querySelectorAll('.sig').forEach(c=>{ if(sigs.has(c.dataset.id)) b+=parseFloat(c.dataset.c); }); return b; })()) + ' / yr' : '';
+      document.getElementById('bar-fill').style.width = Math.round((sc / 8) * 100) + '%';
+
+      const bench = tr > 22 ? 'well above' : tr > 15 ? 'above' : 'within';
+      let ins = 'Your annual turnover rate of <strong>' + pc(tr) + '</strong> sits ' + bench + ' the industry average of 15 to 22%.';
+      if (sc > 0) ins += ' With <strong>' + sc + ' active burnout signal' + (sc > 1 ? 's' : '') + '</strong>, the damage extends well beyond the departures you can count.';
+      if (sc >= 5) ins += ' Together these signals indicate a systemic culture issue, one that will accelerate as younger generations reset the bar for what acceptable workplaces look like.';
+      document.getElementById('insight-box').innerHTML = ins;
+
+      let w = '';
+      const periodLong = years === 10 ? 'next decade' : 'next two decades';
+      if (genTotal > 0) {
+        if (tr > 25 || sc >= 5) w = 'At your current trajectory you are on pace to spend <strong>' + fm(genTotal) + '</strong> over the ' + periodLong + ' on the same problem, while the incoming workforce makes it exponentially harder to solve. The businesses that survive the generational shift are the ones investing in culture now, before it becomes table stakes they can no longer meet.';
+        else if (sc >= 3) w = 'The hidden costs you have identified are already compounding. Over ' + years + ' years that is <strong>' + fm(genTotal) + '</strong> leaving your business, not in product, not in growth, but in churn. Gen Z will not stay in environments that ignore wellbeing. This number grows if the culture does not change first.';
+        else w = 'Even with a relatively contained picture today, the ' + years + ' year cost of <strong>' + fm(genTotal) + '</strong> reflects a problem that grows quietly. Retention is cheapest to solve before it becomes a crisis. The generational shift is coming regardless. The question is whether your culture is ready for it.';
+      }
+      document.getElementById('warn-txt').innerHTML = w || 'Your numbers will appear here.';
+
+      const perspectives = {
+        owner: 'Your team sees gaps you cannot. The <strong>Burnout Audit</strong> maps every level.',
+        csuite: 'The executive view abstracts the bleed. The <strong>Burnout Audit</strong> closes that gap.',
+        director: 'Your team and the C-suite see different gaps. The <strong>Burnout Audit</strong> maps both.',
+        hr: 'You see the pattern. The <strong>Burnout Audit</strong> turns it into executive priority.',
+        ic: 'Your view is often the most accurate. The <strong>Burnout Audit</strong> makes it heard.'
+      };
+      document.getElementById('perspective-text').innerHTML = perspectives[role] || perspectives.owner;
+
+      calcWhatIf();
+    }
+
+    ['n-total','n-left1','n-left5','n-sal','n-fill','n-sick','n-mgr'].forEach(id => {
+      document.getElementById(id).addEventListener('input', calc);
+    });
+
+    // Build a shareable URL with current state baked in
+    function buildShareURL() {
+      const indPills = document.querySelectorAll('#ind-row .pill');
+      let indIdx = 0;
+      indPills.forEach((b, i) => { if (b.classList.contains('on')) indIdx = i; });
+      const params = new URLSearchParams({
+        i: indIdx,
+        ro: role,
+        t: v('n-total'),
+        a: v('n-left1'),
+        b: v('n-left5'),
+        s: v('n-sal'),
+        f: v('n-fill'),
+        k: v('n-sick'),
+        m: v('n-mgr'),
+        sg: Array.from(sigs).join(','),
+        y: years,
+        ret: v('sl-ret'),
+        bur: v('sl-burn'),
+        prd: v('sl-prod')
+      });
+      return window.location.origin + window.location.pathname + '?' + params.toString();
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      clearTimeout(window._toastTimer);
+      window._toastTimer = setTimeout(() => t.classList.remove('show'), 2400);
+    }
+
+    async function shareResults() {
+      const url = buildShareURL();
+      try {
+        await navigator.clipboard.writeText(url);
+        showToast('Link copied to clipboard');
+      } catch (e) {
+        window.prompt('Copy this link:', url);
+      }
+    }
+
+    function downloadPDF() {
+      const meth = document.querySelector('.meth');
+      const wasOpen = meth.open;
+      meth.open = true;
+      const onAfter = () => {
+        meth.open = wasOpen;
+        window.removeEventListener('afterprint', onAfter);
+      };
+      window.addEventListener('afterprint', onAfter);
+      window.print();
+    }
+
+    // Restore state from URL on first load (and jump to results)
+    function loadFromURL() {
+      const p = new URLSearchParams(window.location.search);
+      if (![...p.keys()].length) return false;
+
+      if (p.has('i')) {
+        const idx = parseInt(p.get('i'));
+        const indPills = document.querySelectorAll('#ind-row .pill');
+        if (idx >= 0 && idx < indPills.length) {
+          indPills.forEach(x => x.classList.remove('on'));
+          indPills[idx].classList.add('on');
+          mult = parseFloat(indPills[idx].dataset.m);
+        }
+      }
+
+      if (p.has('ro')) {
+        const r = p.get('ro');
+        const roleBtn = document.querySelector('#role-row .pill[data-role="' + r + '"]');
+        if (roleBtn) {
+          document.querySelectorAll('#role-row .pill').forEach(x => x.classList.remove('on'));
+          roleBtn.classList.add('on');
+          role = r;
+        }
+      }
+
+      const numericMap = { t: 'n-total', a: 'n-left1', b: 'n-left5', s: 'n-sal', f: 'n-fill', k: 'n-sick', m: 'n-mgr' };
+      for (const [key, id] of Object.entries(numericMap)) {
+        if (p.has(key)) document.getElementById(id).value = p.get(key);
+      }
+
+      if (p.has('sg') && p.get('sg').length > 0) {
+        sigs.clear();
+        document.querySelectorAll('.sig').forEach(c => c.classList.remove('on'));
+        p.get('sg').split(',').forEach(id => {
+          const card = document.querySelector('.sig[data-id="' + id + '"]');
+          if (card) { sigs.add(id); card.classList.add('on'); }
+        });
+      }
+
+      if (p.has('y')) {
+        const y = parseInt(p.get('y'));
+        if (y === 10 || y === 20) {
+          years = y;
+          document.querySelectorAll('#year-toggle .year-btn').forEach(b => b.classList.remove('on'));
+          const yBtn = document.querySelector('#year-toggle .year-btn[data-yrs="' + y + '"]');
+          if (yBtn) yBtn.classList.add('on');
+          document.getElementById('year-toggle').dataset.yrsActive = String(y);
+        }
+      }
+
+      const sliderMap = { ret: 'sl-ret', bur: 'sl-burn', prd: 'sl-prod' };
+      for (const [key, id] of Object.entries(sliderMap)) {
+        if (p.has(key)) {
+          document.getElementById(id).value = p.get(key);
+          document.getElementById(id + '-out').textContent = p.get(key) + '%';
+        }
+      }
+
+      return true;
+    }
+
+    const cameFromShare = loadFromURL();
+    calc();
+    if (cameFromShare) goTo('results');
+  </script>
+</body>
+</html>

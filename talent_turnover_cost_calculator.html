@@ -1,0 +1,168 @@
+
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font-sans); }
+  .calc-wrap { padding: 1.5rem 0; max-width: 680px; }
+  .section-label { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text-tertiary); margin-bottom: 1rem; font-weight: 500; }
+  .field-group { margin-bottom: 1.25rem; }
+  .field-label { font-size: 14px; color: var(--color-text-secondary); margin-bottom: 6px; display: block; }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .field-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+  .input-wrap { position: relative; }
+  .prefix { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-size: 14px; color: var(--color-text-tertiary); pointer-events: none; }
+  input[type="number"] { width: 100%; padding: 9px 12px; font-size: 15px; background: var(--color-background-primary); border: 0.5px solid var(--color-border-secondary); border-radius: var(--border-radius-md); color: var(--color-text-primary); font-family: var(--font-sans); }
+  input[type="number"].has-prefix { padding-left: 22px; }
+  input[type="number"]:focus { outline: none; border-color: var(--color-border-primary); }
+  .divider { border: none; border-top: 0.5px solid var(--color-border-tertiary); margin: 1.5rem 0; }
+  .results-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 1.25rem; }
+  .metric-card { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 1rem; }
+  .metric-card.accent { background: #E1F5EE; }
+  .metric-label { font-size: 12px; color: var(--color-text-secondary); margin-bottom: 6px; }
+  .metric-val { font-size: 22px; font-weight: 500; color: var(--color-text-primary); }
+  .metric-val.highlight { color: #0F6E56; }
+  .metric-sub { font-size: 12px; color: var(--color-text-tertiary); margin-top: 4px; }
+  .cta-strip { background: var(--color-background-secondary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1.25rem 1.5rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: 1.5rem; }
+  .cta-text { font-size: 14px; color: var(--color-text-secondary); line-height: 1.5; }
+  .cta-text strong { color: var(--color-text-primary); font-weight: 500; }
+  .cta-btn { background: var(--color-background-primary); border: 0.5px solid var(--color-border-secondary); border-radius: var(--border-radius-md); padding: 9px 18px; font-size: 14px; font-weight: 500; color: var(--color-text-primary); cursor: pointer; white-space: nowrap; font-family: var(--font-sans); }
+  .cta-btn:hover { background: var(--color-background-secondary); }
+  .insight-box { border-left: 2px solid #1D9E75; padding: 0.75rem 1rem; background: var(--color-background-secondary); border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0; margin-bottom: 1.25rem; }
+  .insight-text { font-size: 13px; color: var(--color-text-secondary); line-height: 1.6; }
+  .insight-text span { color: var(--color-text-primary); font-weight: 500; }
+  .toggle-row { display: flex; gap: 8px; margin-bottom: 1rem; flex-wrap: wrap; }
+  .toggle-btn { font-size: 13px; padding: 5px 14px; border-radius: 20px; border: 0.5px solid var(--color-border-secondary); background: var(--color-background-primary); color: var(--color-text-secondary); cursor: pointer; font-family: var(--font-sans); }
+  .toggle-btn.active { background: #1D9E75; border-color: #1D9E75; color: #fff; }
+</style>
+
+<div class="calc-wrap">
+  <h2 style="sr-only">Talent turnover cost calculator</h2>
+
+  <p class="section-label">Industry</p>
+  <div class="toggle-row" id="industry-toggle">
+    <button class="toggle-btn active" data-multiplier="1.5">Industrial</button>
+    <button class="toggle-btn" data-multiplier="1.6">Supply chain &amp; logistics</button>
+    <button class="toggle-btn" data-multiplier="1.8">Med tech</button>
+    <button class="toggle-btn" data-multiplier="1.7">Recruitment</button>
+  </div>
+
+  <hr class="divider">
+  <p class="section-label">Your workforce</p>
+
+  <div class="field-row-3">
+    <div class="field-group">
+      <label class="field-label" for="emp-total">Total employees</label>
+      <input type="number" id="emp-total" value="50" min="1">
+    </div>
+    <div class="field-group">
+      <label class="field-label" for="emp-left-1">Left in past year</label>
+      <input type="number" id="emp-left-1" value="6" min="0">
+    </div>
+    <div class="field-group">
+      <label class="field-label" for="emp-left-5">Left in past 5 years</label>
+      <input type="number" id="emp-left-5" value="22" min="0">
+    </div>
+  </div>
+
+  <div class="field-group">
+    <label class="field-label" for="avg-salary">Average annual salary</label>
+    <div class="input-wrap">
+      <span class="prefix">$</span>
+      <input type="number" id="avg-salary" class="has-prefix" value="65000" min="0" step="1000">
+    </div>
+  </div>
+
+  <div class="field-group">
+    <label class="field-label" for="replacement-time">Avg. time to fill a role (months)</label>
+    <input type="number" id="replacement-time" value="3" min="1" max="24">
+  </div>
+
+  <hr class="divider">
+  <p class="section-label">Your turnover cost</p>
+
+  <div id="insight-box" class="insight-box">
+    <p class="insight-text" id="insight-text"></p>
+  </div>
+
+  <div class="results-grid">
+    <div class="metric-card">
+      <p class="metric-label">Cost per departed employee</p>
+      <p class="metric-val" id="cost-per-emp">—</p>
+      <p class="metric-sub">Recruitment + onboarding + lost productivity</p>
+    </div>
+    <div class="metric-card accent">
+      <p class="metric-label">Total cost — past year</p>
+      <p class="metric-val highlight" id="cost-1yr">—</p>
+      <p class="metric-sub">Based on <span id="left-1-out">—</span> departures</p>
+    </div>
+    <div class="metric-card">
+      <p class="metric-label">Total cost — past 5 years</p>
+      <p class="metric-val" id="cost-5yr">—</p>
+      <p class="metric-sub">Cumulative organizational spend</p>
+    </div>
+    <div class="metric-card">
+      <p class="metric-label">Annual turnover rate</p>
+      <p class="metric-val" id="turnover-rate">—</p>
+      <p class="metric-sub">Industry avg. is 15–22%</p>
+    </div>
+  </div>
+
+  <div class="metric-card" style="margin-bottom: 1.25rem;">
+    <p class="metric-label">Productivity gap cost</p>
+    <p class="metric-val" id="productivity-cost">—</p>
+    <p class="metric-sub">Estimated value of unfilled roles during replacement period</p>
+  </div>
+
+  <div class="cta-strip">
+    <p class="cta-text"><strong>These numbers don't have to be your reality.</strong> Grey Couch offers workplace wellness programs designed to reduce burnout and improve retention in legacy industries.</p>
+    <button class="cta-btn" onclick="sendPrompt('How can Grey Couch Counselling help reduce employee turnover in my organization?')">Get the plan ↗</button>
+  </div>
+</div>
+
+<script>
+  const fmt = n => '$' + Math.round(n).toLocaleString();
+  const pct = n => Math.round(n * 10) / 10 + '%';
+  let multiplier = 1.5;
+
+  document.querySelectorAll('.toggle-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      multiplier = parseFloat(btn.dataset.multiplier);
+      calc();
+    });
+  });
+
+  function val(id) { return parseFloat(document.getElementById(id).value) || 0; }
+
+  function calc() {
+    const total = val('emp-total');
+    const left1 = val('emp-left-1');
+    const left5 = val('emp-left-5');
+    const salary = val('avg-salary');
+    const fillMonths = val('replacement-time');
+
+    const costPerEmp = salary * multiplier;
+    const cost1yr = costPerEmp * left1;
+    const cost5yr = costPerEmp * left5;
+    const turnoverRate = total > 0 ? (left1 / total) * 100 : 0;
+    const prodGap = (salary / 12) * fillMonths * left1;
+
+    document.getElementById('cost-per-emp').textContent = fmt(costPerEmp);
+    document.getElementById('cost-1yr').textContent = fmt(cost1yr);
+    document.getElementById('cost-5yr').textContent = fmt(cost5yr);
+    document.getElementById('turnover-rate').textContent = pct(turnoverRate);
+    document.getElementById('productivity-cost').textContent = fmt(prodGap);
+    document.getElementById('left-1-out').textContent = left1;
+
+    const benchmark = turnoverRate > 22 ? 'well above' : turnoverRate > 15 ? 'above' : 'within';
+    const urgency = turnoverRate > 30 ? 'At this rate, you could lose your entire team within 3 years.' : turnoverRate > 20 ? 'Unchecked, this compounds quickly — retaining even 2 more employees this year saves ' + fmt(costPerEmp * 2) + '.' : 'Every departure still carries significant hidden cost.';
+    document.getElementById('insight-text').innerHTML =
+      'Your annual turnover rate of <span>' + pct(turnoverRate) + '</span> is ' + benchmark + ' the industry average of 15–22%. ' + urgency;
+  }
+
+  ['emp-total','emp-left-1','emp-left-5','avg-salary','replacement-time'].forEach(id => {
+    document.getElementById(id).addEventListener('input', calc);
+  });
+
+  calc();
+</script>

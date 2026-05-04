@@ -1,0 +1,316 @@
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+.wrap { padding: 1.5rem 0; max-width: 700px; font-family: var(--font-sans); }
+.section-label { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text-tertiary); margin-bottom: 1rem; font-weight: 500; }
+.field-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 1.25rem; }
+.field-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 1.25rem; }
+.field-group { margin-bottom: 0; }
+.field-label { font-size: 14px; color: var(--color-text-secondary); margin-bottom: 6px; display: block; line-height: 1.4; }
+.prefix { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-size: 14px; color: var(--color-text-tertiary); pointer-events: none; }
+input[type="number"] { width: 100%; padding: 9px 12px; font-size: 15px; background: var(--color-background-primary); border: 0.5px solid var(--color-border-secondary); border-radius: var(--border-radius-md); color: var(--color-text-primary); font-family: var(--font-sans); }
+input[type="number"].has-prefix { padding-left: 22px; }
+.input-wrap { position: relative; }
+input:focus { outline: none; border-color: var(--color-border-primary); }
+.divider { border: none; border-top: 0.5px solid var(--color-border-tertiary); margin: 1.5rem 0; }
+.signal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1.25rem; }
+.signal-card { border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); padding: 0.85rem 1rem; cursor: pointer; transition: border-color 0.15s; background: var(--color-background-primary); }
+.signal-card:hover { border-color: var(--color-border-secondary); }
+.signal-card.selected { border-color: #1D9E75; background: #E1F5EE; }
+.signal-card .sig-label { font-size: 13px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 3px; }
+.signal-card.selected .sig-label { color: #0F6E56; }
+.signal-card .sig-sub { font-size: 12px; color: var(--color-text-tertiary); line-height: 1.4; }
+.signal-card.selected .sig-sub { color: #1D9E75; }
+.check { display: inline-block; width: 14px; height: 14px; border-radius: 50%; border: 1px solid var(--color-border-secondary); margin-right: 6px; vertical-align: middle; position: relative; top: -1px; }
+.signal-card.selected .check { background: #1D9E75; border-color: #1D9E75; }
+.results-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 1.25rem; }
+.metric-card { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 1rem; }
+.metric-label { font-size: 12px; color: var(--color-text-secondary); margin-bottom: 6px; }
+.metric-val { font-size: 22px; font-weight: 500; color: var(--color-text-primary); }
+.metric-val.green { color: #0F6E56; }
+.metric-val.amber { color: #BA7517; }
+.metric-sub { font-size: 12px; color: var(--color-text-tertiary); margin-top: 4px; }
+.insight-box { border-left: 2px solid #1D9E75; padding: 0.75rem 1rem; background: var(--color-background-secondary); border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0; margin-bottom: 1.25rem; font-size: 13px; color: var(--color-text-secondary); line-height: 1.6; }
+.insight-box span { color: var(--color-text-primary); font-weight: 500; }
+.gen-panel { border: 0.5px solid #9FE1CB; border-radius: var(--border-radius-lg); padding: 1.5rem; margin-bottom: 1.25rem; background: var(--color-background-primary); }
+.gen-title { font-size: 15px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 6px; }
+.gen-sub { font-size: 13px; color: var(--color-text-secondary); line-height: 1.6; margin-bottom: 1.25rem; }
+.gen-number { font-size: 36px; font-weight: 500; color: #0F6E56; margin-bottom: 4px; }
+.gen-caption { font-size: 12px; color: var(--color-text-tertiary); }
+.gen-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: 1rem; }
+.gen-mini { background: #E1F5EE; border-radius: var(--border-radius-md); padding: 0.75rem; }
+.gen-mini-val { font-size: 18px; font-weight: 500; color: #0F6E56; }
+.gen-mini-label { font-size: 11px; color: #1D9E75; margin-top: 3px; }
+.toggle-row { display: flex; gap: 8px; margin-bottom: 1rem; flex-wrap: wrap; }
+.toggle-btn { font-size: 13px; padding: 5px 14px; border-radius: 20px; border: 0.5px solid var(--color-border-secondary); background: var(--color-background-primary); color: var(--color-text-secondary); cursor: pointer; font-family: var(--font-sans); }
+.toggle-btn.active { background: #1D9E75; border-color: #1D9E75; color: #fff; }
+.warn-strip { background: #FAEEDA; border: 0.5px solid #FAC775; border-radius: var(--border-radius-md); padding: 1rem 1.25rem; margin-bottom: 1.25rem; font-size: 13px; color: #633806; line-height: 1.6; }
+.warn-strip strong { color: #412402; }
+.cta-strip { background: var(--color-background-secondary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1.25rem 1.5rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.cta-text { font-size: 14px; color: var(--color-text-secondary); line-height: 1.5; }
+.cta-text strong { color: var(--color-text-primary); font-weight: 500; }
+.cta-btn { background: #1D9E75; border: none; border-radius: var(--border-radius-md); padding: 10px 20px; font-size: 14px; font-weight: 500; color: #fff; cursor: pointer; white-space: nowrap; font-family: var(--font-sans); }
+.cta-btn:hover { background: #0F6E56; }
+.score-bar-wrap { margin-bottom: 1rem; }
+.score-bar-bg { height: 8px; background: var(--color-background-secondary); border-radius: 4px; overflow: hidden; margin-top: 6px; }
+.score-bar-fill { height: 100%; border-radius: 4px; background: #1D9E75; transition: width 0.4s; }
+</style>
+
+<div class="wrap">
+  <h2 style="font-size:0;position:absolute;">Talent turnover and burnout cost calculator</h2>
+
+  <p class="section-label">Industry</p>
+  <div class="toggle-row" id="industry-toggle">
+    <button class="toggle-btn active" data-multiplier="1.5">Industrial</button>
+    <button class="toggle-btn" data-multiplier="1.6">Supply chain &amp; logistics</button>
+    <button class="toggle-btn" data-multiplier="1.8">Med tech</button>
+    <button class="toggle-btn" data-multiplier="1.7">Recruitment</button>
+  </div>
+
+  <hr class="divider">
+  <p class="section-label">Your workforce</p>
+  <div class="field-row-3">
+    <div class="field-group">
+      <label class="field-label" for="emp-total">Total employees</label>
+      <input type="number" id="emp-total" value="50" min="1">
+    </div>
+    <div class="field-group">
+      <label class="field-label" for="emp-left-1">Left in past year</label>
+      <input type="number" id="emp-left-1" value="6" min="0">
+    </div>
+    <div class="field-group">
+      <label class="field-label" for="emp-left-5">Left in past 5 years</label>
+      <input type="number" id="emp-left-5" value="22" min="0">
+    </div>
+  </div>
+  <div class="field-row-2">
+    <div class="field-group">
+      <label class="field-label" for="avg-salary">Average annual salary</label>
+      <div class="input-wrap">
+        <span class="prefix">$</span>
+        <input type="number" id="avg-salary" class="has-prefix" value="65000" min="0" step="1000">
+      </div>
+    </div>
+    <div class="field-group">
+      <label class="field-label" for="fill-time">Avg. months to fill a role</label>
+      <input type="number" id="fill-time" value="3" min="1" max="24">
+    </div>
+  </div>
+  <div class="field-row-2">
+    <div class="field-group">
+      <label class="field-label" for="sick-days">Avg. sick days per employee / year</label>
+      <input type="number" id="sick-days" value="8" min="0">
+    </div>
+    <div class="field-group">
+      <label class="field-label" for="mgr-hours">Manager hrs/week managing disengagement</label>
+      <input type="number" id="mgr-hours" value="5" min="0">
+    </div>
+  </div>
+
+  <hr class="divider">
+  <p class="section-label">Hidden burnout signals — select all that apply to your organization</p>
+
+  <div class="signal-grid" id="signal-grid">
+    <div class="signal-card" data-cost="0.08" data-id="referrals">
+      <div class="sig-label"><span class="check"></span>Employees rarely refer candidates</div>
+      <div class="sig-sub">Low advocacy = damaged employer brand reaching the next generation of talent</div>
+    </div>
+    <div class="signal-card" data-cost="0.06" data-id="glassdoor">
+      <div class="sig-label"><span class="check"></span>Negative online reviews (Glassdoor / Indeed)</div>
+      <div class="sig-sub">Gen Z researches employers before applying — bad reviews cut your talent pipeline</div>
+    </div>
+    <div class="signal-card" data-cost="0.07" data-id="deadlines">
+      <div class="sig-label"><span class="check"></span>Missed deadlines or client deliverables</div>
+      <div class="sig-sub">Disengaged teams quietly erode the quality and reliability your reputation is built on</div>
+    </div>
+    <div class="signal-card" data-cost="0.09" data-id="seniors">
+      <div class="sig-label"><span class="check"></span>Senior staff absorbing unfilled role workload</div>
+      <div class="sig-sub">Overloading your best people is the fastest path to losing them too</div>
+    </div>
+    <div class="signal-card" data-cost="0.10" data-id="knowledge">
+      <div class="sig-label"><span class="check"></span>Critical knowledge walks out when people leave</div>
+      <div class="sig-sub">Process, client relationships, institutional memory — this is the silent cost no spreadsheet captures</div>
+    </div>
+    <div class="signal-card" data-cost="0.05" data-id="divide">
+      <div class="sig-label"><span class="check"></span>Tension between "old guard" and newer staff</div>
+      <div class="sig-sub">Generational culture friction drives out exactly the people you need to carry the business forward</div>
+    </div>
+    <div class="signal-card" data-cost="0.06" data-id="participation">
+      <div class="sig-label"><span class="check"></span>Low participation in optional company initiatives</div>
+      <div class="sig-sub">Disengagement precedes departure — this is an early warning signal</div>
+    </div>
+    <div class="signal-card" data-cost="0.08" data-id="managers">
+      <div class="sig-label"><span class="check"></span>Managers or team leads have left or expressed frustration</div>
+      <div class="sig-sub">Leadership exits multiply — one manager leaving can trigger a wave of team departures</div>
+    </div>
+  </div>
+
+  <div class="score-bar-wrap">
+    <p style="font-size:13px; color: var(--color-text-secondary);">Burnout signal score: <span id="score-label" style="font-weight:500; color: var(--color-text-primary);">0 of 8</span></p>
+    <div class="score-bar-bg"><div class="score-bar-fill" id="score-bar" style="width:0%"></div></div>
+  </div>
+
+  <hr class="divider">
+  <p class="section-label">Your cost breakdown</p>
+
+  <div class="insight-box" id="insight-box">Select your burnout signals above to see your personalized cost picture.</div>
+
+  <div class="results-grid">
+    <div class="metric-card">
+      <p class="metric-label">Cost per departed employee</p>
+      <p class="metric-val" id="cost-per-emp">—</p>
+      <p class="metric-sub">Recruiting + onboarding + lost productivity</p>
+    </div>
+    <div class="metric-card">
+      <p class="metric-label">Total turnover cost — past year</p>
+      <p class="metric-val green" id="cost-1yr">—</p>
+      <p class="metric-sub" id="left-1-sub">—</p>
+    </div>
+    <div class="metric-card">
+      <p class="metric-label">5-year turnover cost</p>
+      <p class="metric-val" id="cost-5yr">—</p>
+      <p class="metric-sub">Cumulative organizational spend</p>
+    </div>
+    <div class="metric-card">
+      <p class="metric-label">Annual turnover rate</p>
+      <p class="metric-val" id="turnover-rate">—</p>
+      <p class="metric-sub">Industry avg. 15–22%</p>
+    </div>
+    <div class="metric-card">
+      <p class="metric-label">Productivity gap (unfilled roles)</p>
+      <p class="metric-val" id="prod-cost">—</p>
+      <p class="metric-sub">Lost output while searching for replacements</p>
+    </div>
+    <div class="metric-card">
+      <p class="metric-label">Hidden burnout cost (annual)</p>
+      <p class="metric-val amber" id="burnout-cost">—</p>
+      <p class="metric-sub">Based on selected signals × payroll</p>
+    </div>
+  </div>
+
+  <div id="gen-panel" class="gen-panel">
+    <p class="gen-title">The generational cost of doing nothing</p>
+    <p class="gen-sub">Millennials are aging into senior and leadership roles. Gen Z and Gen Alpha are entering the workforce with fundamentally different expectations around wellness, purpose, and culture. Businesses that don't act now won't just lose individuals — they'll lose the ability to attract the next generation entirely. Here's what inaction costs your business over the next decade.</p>
+    <p class="gen-number" id="gen-cost">—</p>
+    <p class="gen-caption">Projected 10-year cost of unresolved turnover and burnout</p>
+    <div class="gen-row">
+      <div class="gen-mini">
+        <p class="gen-mini-val" id="gen-annual">—</p>
+        <p class="gen-mini-label">Annual bleed rate</p>
+      </div>
+      <div class="gen-mini">
+        <p class="gen-mini-val" id="gen-5yr">—</p>
+        <p class="gen-mini-label">5-year projection</p>
+      </div>
+      <div class="gen-mini">
+        <p class="gen-mini-val" id="gen-10yr">—</p>
+        <p class="gen-mini-label">10-year projection (×10)</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="warn-strip" id="warn-strip">
+    <strong>What this really means:</strong> <span id="warn-text">Your numbers will appear here once you fill in your workforce details.</span>
+  </div>
+
+  <div class="cta-strip">
+    <p class="cta-text"><strong>Your business can survive this shift — but only with a plan.</strong> Grey Couch builds workplace wellness programs specifically for legacy industries facing generational change.</p>
+    <button class="cta-btn" onclick="sendPrompt('I want to learn how Grey Couch can help reduce burnout and future-proof my organization against generational workforce change.')">Book a consult ↗</button>
+  </div>
+</div>
+
+<script>
+const fmt = n => '$' + Math.round(n).toLocaleString();
+const pct = n => (Math.round(n * 10) / 10) + '%';
+let multiplier = 1.5;
+let selectedSignals = new Set();
+
+document.querySelectorAll('.toggle-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    multiplier = parseFloat(btn.dataset.multiplier);
+    calc();
+  });
+});
+
+document.querySelectorAll('.signal-card').forEach(card => {
+  card.addEventListener('click', () => {
+    const id = card.dataset.id;
+    if (selectedSignals.has(id)) { selectedSignals.delete(id); card.classList.remove('selected'); }
+    else { selectedSignals.add(id); card.classList.add('selected'); }
+    calc();
+  });
+});
+
+function v(id) { return parseFloat(document.getElementById(id).value) || 0; }
+
+function calc() {
+  const total = v('emp-total');
+  const left1 = v('emp-left-1');
+  const left5 = v('emp-left-5');
+  const salary = v('avg-salary');
+  const fillMonths = v('fill-time');
+  const sickDays = v('sick-days');
+  const mgrHrs = v('mgr-hours');
+  const annualPayroll = total * salary;
+
+  const costPerEmp = salary * multiplier;
+  const cost1yr = costPerEmp * left1;
+  const cost5yr = costPerEmp * left5;
+  const turnoverRate = total > 0 ? (left1 / total) * 100 : 0;
+  const prodCost = (salary / 12) * fillMonths * left1;
+
+  const sickCost = (sickDays > 10) ? annualPayroll * 0.04 : annualPayroll * 0.02;
+  const mgrCost = mgrHrs * 52 * (salary / 2080);
+
+  let burnoutMultiplier = 0;
+  document.querySelectorAll('.signal-card').forEach(card => {
+    if (selectedSignals.has(card.dataset.id)) burnoutMultiplier += parseFloat(card.dataset.cost);
+  });
+  const burnoutCost = annualPayroll * burnoutMultiplier + sickCost + mgrCost;
+
+  const annualTotal = cost1yr + prodCost + burnoutCost;
+  const gen10yr = annualTotal * 10;
+
+  document.getElementById('cost-per-emp').textContent = fmt(costPerEmp);
+  document.getElementById('cost-1yr').textContent = fmt(cost1yr);
+  document.getElementById('left-1-sub').textContent = left1 + ' departure' + (left1 === 1 ? '' : 's') + ' this year';
+  document.getElementById('cost-5yr').textContent = fmt(cost5yr);
+  document.getElementById('turnover-rate').textContent = pct(turnoverRate);
+  document.getElementById('prod-cost').textContent = fmt(prodCost);
+  document.getElementById('burnout-cost').textContent = selectedSignals.size > 0 ? fmt(burnoutCost) : '$0';
+
+  document.getElementById('gen-annual').textContent = fmt(annualTotal);
+  document.getElementById('gen-5yr').textContent = fmt(annualTotal * 5);
+  document.getElementById('gen-10yr').textContent = fmt(gen10yr);
+  document.getElementById('gen-cost').textContent = fmt(gen10yr);
+
+  const scoreCount = selectedSignals.size;
+  document.getElementById('score-label').textContent = scoreCount + ' of 8';
+  document.getElementById('score-bar').style.width = Math.round((scoreCount / 8) * 100) + '%';
+
+  const benchmark = turnoverRate > 22 ? 'well above' : turnoverRate > 15 ? 'above' : 'within';
+  let insightText = 'Your annual turnover rate of <span>' + pct(turnoverRate) + '</span> is ' + benchmark + ' the industry average of 15–22%.';
+  if (scoreCount > 0) insightText += ' With <span>' + scoreCount + ' active burnout signal' + (scoreCount > 1 ? 's' : '') + '</span>, the damage extends well beyond the departures you can count.';
+  if (scoreCount >= 5) insightText += ' These signals together indicate a systemic culture issue — one that will accelerate as younger generations set the new baseline for workplace expectations.';
+  document.getElementById('insight-box').innerHTML = insightText;
+
+  let warnText = '';
+  if (gen10yr > 0) {
+    if (turnoverRate > 25 || scoreCount >= 5) {
+      warnText = 'At your current trajectory, you are on pace to spend <strong>' + fmt(gen10yr) + '</strong> over the next decade on the same problem — while the incoming workforce makes this exponentially harder to solve. The businesses that will survive the generational shift are the ones investing in culture <em>now</em>, before the talent pool expects it as table stakes.';
+    } else if (scoreCount >= 3) {
+      warnText = 'The hidden costs you\'ve identified are already compounding. Over 10 years, that\'s <strong>' + fmt(gen10yr) + '</strong> leaving your business — not in product, not in growth, but in churn. Gen Z will not stay in environments that ignore wellbeing. This number will grow if the culture doesn\'t change first.';
+    } else {
+      warnText = 'Even with a relatively contained picture today, the 10-year cost of <strong>' + fmt(gen10yr) + '</strong> reflects a problem that grows quietly. Retention is cheapest to solve before it becomes a crisis. The generational shift is coming regardless — the question is whether your culture is ready for it.';
+    }
+  }
+  document.getElementById('warn-text').innerHTML = warnText || 'Your numbers will appear here once you fill in your workforce details.';
+}
+
+['emp-total','emp-left-1','emp-left-5','avg-salary','fill-time','sick-days','mgr-hours'].forEach(id => {
+  document.getElementById(id).addEventListener('input', calc);
+});
+calc();
+</script>
