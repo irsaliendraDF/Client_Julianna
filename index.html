@@ -251,6 +251,31 @@
       color: var(--ink-muted); line-height: 1.55;
       margin-top: 0.85rem;
     }
+    .lead-consent {
+      display: flex; align-items: flex-start; gap: 10px;
+      margin-top: 0.85rem;
+      padding: 0.85rem 0.95rem;
+      background: rgba(247, 240, 225, 0.55);
+      border: 1px solid var(--line-soft);
+      border-radius: var(--r-md);
+      cursor: pointer;
+      font-family: var(--font-body); font-size: 11.5px;
+      color: var(--ink-soft); line-height: 1.55;
+      transition: border-color 0.18s, background 0.18s;
+    }
+    .lead-consent:hover { border-color: var(--ink-muted); }
+    .lead-consent input[type="checkbox"] {
+      flex-shrink: 0;
+      width: 16px; height: 16px;
+      margin-top: 1px;
+      accent-color: var(--terracotta);
+      cursor: pointer;
+    }
+    .lead-consent-text a {
+      color: var(--ink); text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .lead-consent-text a:hover { color: var(--terracotta); }
     .lead-error {
       font-family: var(--font-body); font-size: 12px;
       color: var(--terracotta-deep); font-weight: 500;
@@ -1434,6 +1459,15 @@
             </div>
           </div>
           <p class="lead-note">We'll send your full results to this email and may follow up about the Burnout Audit. No spam, no list rentals.</p>
+
+          <!-- TODO: replace href="#" with the live URLs once Julianna Systems publishes Terms of Use and Privacy Policy pages. -->
+          <label class="lead-consent">
+            <input type="checkbox" id="lead-consent" required>
+            <span class="lead-consent-text">
+              I agree to the <a href="#" target="_blank" rel="noopener">Terms of Use</a> and <a href="#" target="_blank" rel="noopener">Privacy Policy</a>, and consent to receive emails from Julianna Systems including my results and updates about the Burnout Audit. Unsubscribe anytime.
+            </span>
+          </label>
+
           <p class="lead-error" id="lead-error" style="display:none;"></p>
         </form>
       </div>
@@ -1976,7 +2010,7 @@
     // It is safe to commit. Web3Forms keys only allow submissions, no other access.
     const WEB3FORMS_KEY = '';
 
-    async function sendLeadToInbox(name, email) {
+    async function sendLeadToInbox(name, email, consentTs) {
       if (!WEB3FORMS_KEY) {
         console.info('[lead] No WEB3FORMS_KEY set, skipping email send. Lead saved locally.');
         return false;
@@ -2015,7 +2049,10 @@
         Projected_Cost: fm(annualTotal * years),
 
         Diagnostic_URL: buildShareURL(),
-        Captured_At: new Date().toISOString()
+        Captured_At: new Date().toISOString(),
+
+        Consent_To_Terms_Privacy_And_Marketing: 'Yes',
+        Consent_Timestamp: consentTs || new Date().toISOString()
       };
 
       try {
@@ -2050,6 +2087,7 @@
     function unlockResults() {
       const nameEl = document.getElementById('lead-name');
       const emailEl = document.getElementById('lead-email');
+      const consentEl = document.getElementById('lead-consent');
       const errEl = document.getElementById('lead-error');
 
       const name = nameEl.value.trim();
@@ -2068,21 +2106,30 @@
         emailEl.focus();
         return;
       }
+      if (!consentEl.checked) {
+        errEl.textContent = 'Please agree to the Terms, Privacy Policy, and email consent to continue.';
+        errEl.style.display = 'block';
+        consentEl.focus();
+        return;
+      }
 
       errEl.style.display = 'none';
       leadName = name;
       leadEmail = email;
       leadCaptured = true;
 
+      const consentTs = new Date().toISOString();
       try {
         localStorage.setItem('js_lead', JSON.stringify({
-          name: name, email: email, ts: Date.now()
+          name: name, email: email,
+          consent: { agreed: true, ts: consentTs },
+          ts: Date.now()
         }));
       } catch (e) { /* localStorage may be blocked */ }
 
       // Fire and forget. Julianna gets an email with the lead and full diagnostic context.
       // Not awaited so a slow or failed network does not block the user from seeing results.
-      sendLeadToInbox(name, email);
+      sendLeadToInbox(name, email, consentTs);
 
       updateCtaForLead();
       goTo('results');
