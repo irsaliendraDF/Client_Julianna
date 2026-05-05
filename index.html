@@ -232,7 +232,7 @@
       font-size: 9.5px; color: var(--ink-muted);
       letter-spacing: 0.04em; text-transform: uppercase;
     }
-    input[type="number"] {
+    input[type="number"], input[type="text"], input[type="email"] {
       width: 100%; padding: 10px 12px; font-size: 15px;
       background: var(--paper); border: 1px solid var(--line);
       border-radius: var(--r-md); color: var(--ink);
@@ -240,7 +240,26 @@
       transition: border-color 0.15s, background 0.15s;
     }
     input[type="number"].with-prefix { padding-left: 26px; }
-    input[type="number"]:focus { outline: none; border-color: var(--terracotta); background: var(--card); }
+    input[type="number"]:focus, input[type="text"]:focus, input[type="email"]:focus {
+      outline: none; border-color: var(--terracotta); background: var(--card);
+    }
+    input::placeholder { color: var(--ink-muted); opacity: 0.65; }
+
+    /* Email gate */
+    .lead-note {
+      font-family: var(--font-body); font-size: 11px;
+      color: var(--ink-muted); line-height: 1.55;
+      margin-top: 0.85rem;
+    }
+    .lead-error {
+      font-family: var(--font-body); font-size: 12px;
+      color: var(--terracotta-deep); font-weight: 500;
+      margin-top: 0.65rem;
+      padding: 0.6rem 0.85rem;
+      background: rgba(161, 75, 30, 0.08);
+      border-radius: var(--r-sm);
+      border-left: 2px solid var(--terracotta);
+    }
     .input-wrap { position: relative; }
     .input-prefix {
       position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
@@ -1390,11 +1409,42 @@
 
       <div class="nav-row">
         <button class="btn-ghost" type="button" onclick="back()">← Back</button>
-        <button class="btn-primary" type="button" onclick="next()">See your results →</button>
+        <button class="btn-primary" type="button" onclick="next()">Continue →</button>
       </div>
     </section>
 
-    <!-- Screen 4: Results -->
+    <!-- Screen 4: Unlock (email gate) -->
+    <section class="screen" data-screen="unlock">
+      <div class="screen-header">
+        <p class="screen-eyebrow">One last thing</p>
+        <h2 class="screen-headline">Where should we send your diagnostic?</h2>
+        <p class="screen-quote">the math is done. who's looking?</p>
+      </div>
+
+      <div class="panel">
+        <form id="unlock-form" novalidate onsubmit="event.preventDefault(); unlockResults();">
+          <div class="grid-2">
+            <div>
+              <label class="field-label" for="lead-name">Your name</label>
+              <input type="text" id="lead-name" required autocomplete="name" placeholder="First and last name">
+            </div>
+            <div>
+              <label class="field-label" for="lead-email">Work email</label>
+              <input type="email" id="lead-email" required autocomplete="email" placeholder="you@company.com">
+            </div>
+          </div>
+          <p class="lead-note">We'll send your full results to this email and may follow up about the Burnout Audit. No spam, no list rentals.</p>
+          <p class="lead-error" id="lead-error" style="display:none;"></p>
+        </form>
+      </div>
+
+      <div class="nav-row">
+        <button class="btn-ghost" type="button" onclick="back()">← Back</button>
+        <button class="btn-primary" type="button" onclick="unlockResults()">Unlock my results →</button>
+      </div>
+    </section>
+
+    <!-- Screen 5: Results -->
     <section class="screen" data-screen="results">
       <div class="screen-header">
         <p class="screen-eyebrow"><span class="step-num">04</span> · Review</p>
@@ -1579,13 +1629,22 @@
     let prodCost = 0;
     let cost1yr = 0;
 
+    // Lead capture state
+    let leadName = '';
+    let leadEmail = '';
+    let leadCaptured = false;
+
     // Wizard navigation
-    const screenOrder = ['welcome', 'context', 'workforce', 'signals', 'results'];
+    const screenOrder = ['welcome', 'context', 'workforce', 'signals', 'unlock', 'results'];
     const inputScreens = ['context', 'workforce', 'signals'];
     const stepNames = { context: 'Plan', workforce: 'Adapt', signals: 'Build' };
 
     function goTo(name) {
       if (!screenOrder.includes(name)) return;
+
+      // Email gate enforcement: any path to results requires lead capture
+      if (name === 'results' && !leadCaptured) name = 'unlock';
+
       document.body.dataset.screen = name;
       document.querySelectorAll('.screen').forEach(s => {
         s.classList.toggle('active', s.dataset.screen === name);
@@ -1602,16 +1661,27 @@
         wrap.style.display = 'none';
       }
 
+      if (name === 'unlock') setTimeout(() => {
+        const f = document.getElementById('lead-name'); if (f) f.focus();
+      }, 240);
+      if (name === 'results') applyLeadToResults();
+
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function next() {
       const i = screenOrder.indexOf(document.body.dataset.screen);
-      if (i < screenOrder.length - 1) goTo(screenOrder[i + 1]);
+      let nxt = i + 1;
+      // Skip the unlock screen if we've already captured the lead
+      if (screenOrder[nxt] === 'unlock' && leadCaptured) nxt += 1;
+      if (nxt < screenOrder.length) goTo(screenOrder[nxt]);
     }
     function back() {
       const i = screenOrder.indexOf(document.body.dataset.screen);
-      if (i > 0) goTo(screenOrder[i - 1]);
+      let prv = i - 1;
+      // Skip the unlock screen on the way back if we've already captured the lead
+      if (screenOrder[prv] === 'unlock' && leadCaptured) prv -= 1;
+      if (prv >= 0) goTo(screenOrder[prv]);
     }
 
     // Industry pills
@@ -1901,6 +1971,87 @@
       return true;
     }
 
+    // ---------- Lead capture ----------
+    function loadLead() {
+      try {
+        const raw = localStorage.getItem('js_lead');
+        if (!raw) return;
+        const stored = JSON.parse(raw);
+        if (stored && stored.email) {
+          leadName = stored.name || '';
+          leadEmail = stored.email;
+          leadCaptured = true;
+          const n = document.getElementById('lead-name'); if (n) n.value = leadName;
+          const e = document.getElementById('lead-email'); if (e) e.value = leadEmail;
+        }
+      } catch (e) { /* localStorage may be blocked */ }
+    }
+
+    function unlockResults() {
+      const nameEl = document.getElementById('lead-name');
+      const emailEl = document.getElementById('lead-email');
+      const errEl = document.getElementById('lead-error');
+
+      const name = nameEl.value.trim();
+      const email = emailEl.value.trim();
+      const validEmail = /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email);
+
+      if (!name) {
+        errEl.textContent = 'Please add your name so we know who to send results to.';
+        errEl.style.display = 'block';
+        nameEl.focus();
+        return;
+      }
+      if (!email || !validEmail) {
+        errEl.textContent = 'Please enter a valid email address.';
+        errEl.style.display = 'block';
+        emailEl.focus();
+        return;
+      }
+
+      errEl.style.display = 'none';
+      leadName = name;
+      leadEmail = email;
+      leadCaptured = true;
+
+      try {
+        localStorage.setItem('js_lead', JSON.stringify({
+          name: name, email: email, ts: Date.now()
+        }));
+      } catch (e) { /* localStorage may be blocked */ }
+
+      // TODO: when Julianna picks an email tool (Klaviyo, Supabase, etc.),
+      // wire the network call here. For example:
+      // fetch('/api/lead', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify({ name, email, capturedAt: new Date().toISOString() }) });
+
+      updateCtaForLead();
+      goTo('results');
+    }
+
+    function updateCtaForLead() {
+      const cta = document.querySelector('.gcard.terra .gcard-cta');
+      if (!cta || !leadName || !leadEmail) return;
+      const subject = encodeURIComponent('Reducing turnover and burnout at my organization');
+      const body = encodeURIComponent(
+        "Hi Julianna,\n\nI'm " + leadName + " (" + leadEmail + "). " +
+        "I just worked through the turnover and burnout calculator and I'd like to talk about " +
+        "what it would take to bring these numbers down.\n\nBest,\n" + leadName + "\n"
+      );
+      cta.href = 'mailto:julianna@greycouchcounselling.com?subject=' + subject + '&body=' + body;
+    }
+
+    function applyLeadToResults() {
+      if (!leadCaptured || !leadName) return;
+      const headline = document.querySelector('.screen[data-screen="results"] .screen-headline');
+      if (!headline) return;
+      const first = leadName.split(/\s+/)[0];
+      headline.textContent = 'Here is what the numbers say, ' + first + '.';
+    }
+
+    // Init order: restore lead, then any URL state, then calc, then route.
+    loadLead();
+    if (leadCaptured) updateCtaForLead();
     const cameFromShare = loadFromURL();
     calc();
     if (cameFromShare) goTo('results');
