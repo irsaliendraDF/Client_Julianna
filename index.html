@@ -1972,6 +1972,66 @@
     }
 
     // ---------- Lead capture ----------
+    // Paste the access key from web3forms.com here (registered to julianna@greycouchcounselling.com).
+    // It is safe to commit. Web3Forms keys only allow submissions, no other access.
+    const WEB3FORMS_KEY = '';
+
+    async function sendLeadToInbox(name, email) {
+      if (!WEB3FORMS_KEY) {
+        console.info('[lead] No WEB3FORMS_KEY set, skipping email send. Lead saved locally.');
+        return false;
+      }
+      const indActive = document.querySelector('#ind-row .pill.on');
+      const roleActive = document.querySelector('#role-row .pill.on');
+      const signalLabels = Array.from(document.querySelectorAll('.sig.on'))
+        .map(c => (c.querySelector('.sig-title') || {}).textContent || '')
+        .filter(Boolean);
+
+      const payload = {
+        access_key: WEB3FORMS_KEY,
+        subject: 'New Julianna Systems calculator lead: ' + name,
+        from_name: 'Julianna Systems Calculator',
+        replyto: email,
+
+        Name: name,
+        Email: email,
+
+        Industry: indActive ? indActive.textContent.trim() : '',
+        Role: roleActive ? roleActive.textContent.trim() : '',
+
+        Total_Employees: v('n-total'),
+        Departures_Past_Year: v('n-left1'),
+        Departures_Past_5_Years: v('n-left5'),
+        Average_Annual_Salary: '$' + v('n-sal').toLocaleString(),
+        Months_To_Fill_Role: v('n-fill'),
+        Avg_Sick_Days_Per_Year: v('n-sick'),
+        Manager_Hours_Per_Week: v('n-mgr'),
+
+        Selected_Signals_Count: signalLabels.length + ' of 8',
+        Selected_Signals: signalLabels.join('; ') || 'None selected',
+
+        Annual_Total_Cost: fm(annualTotal),
+        Year_View: years + ' year',
+        Projected_Cost: fm(annualTotal * years),
+
+        Diagnostic_URL: buildShareURL(),
+        Captured_At: new Date().toISOString()
+      };
+
+      try {
+        const r = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const j = await r.json();
+        return j && j.success === true;
+      } catch (err) {
+        console.error('[lead] send failed:', err);
+        return false;
+      }
+    }
+
     function loadLead() {
       try {
         const raw = localStorage.getItem('js_lead');
@@ -2020,10 +2080,9 @@
         }));
       } catch (e) { /* localStorage may be blocked */ }
 
-      // TODO: when Julianna picks an email tool (Klaviyo, Supabase, etc.),
-      // wire the network call here. For example:
-      // fetch('/api/lead', { method: 'POST', headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify({ name, email, capturedAt: new Date().toISOString() }) });
+      // Fire and forget. Julianna gets an email with the lead and full diagnostic context.
+      // Not awaited so a slow or failed network does not block the user from seeing results.
+      sendLeadToInbox(name, email);
 
       updateCtaForLead();
       goTo('results');
