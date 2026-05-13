@@ -2008,6 +2008,11 @@
     // Paste the access key from web3forms.com here (registered to julianna@greycouchcounselling.com).
     // It is safe to commit. Web3Forms keys only allow submissions, no other access.
     const WEB3FORMS_KEY = '';
+    // Supabase backup lead capture (project: ldxcbztlngbasgtcfbjr).
+    // Anon key is safe to commit. RLS on `leads` allows INSERT only via the anon role.
+    const SUPABASE_URL = 'https://ldxcbztlngbasgtcfbjr.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxkeGNienRsbmdiYXNndGNmYmpyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg2NDM1NTgsImV4cCI6MjA5NDIxOTU1OH0.oDdN_ZK93prMrXQ6mCq4qQq7pQCglasQG6woJpauG5M';
+
 
     async function sendLeadToInbox(name, email, consentTs) {
       if (!WEB3FORMS_KEY) {
@@ -2068,6 +2073,53 @@
       }
     }
 
+    async function sendLeadToSupabase(name, email, consentTs) {
+      if (!SUPABASE_URL || !SUPABASE_ANON_KEY) return false;
+      const indActive = document.querySelector('#ind-row .pill.on');
+      const roleActive = document.querySelector('#role-row .pill.on');
+      const signalLabels = Array.from(document.querySelectorAll('.sig.on'))
+        .map(c => (c.querySelector('.sig-title') || {}).textContent || '')
+        .filter(Boolean);
+
+      const num = id => { const x = Number(v(id)); return Number.isFinite(x) ? x : null; };
+
+      const payload = {
+        name: name,
+        email: email,
+        industry: indActive ? indActive.textContent.trim() : null,
+        role: roleActive ? roleActive.textContent.trim() : null,
+        total_employees: num('n-total'),
+        departures_past_year: num('n-left1'),
+        departures_past_5_years: num('n-left5'),
+        avg_annual_salary: num('n-sal'),
+        months_to_fill: num('n-fill'),
+        avg_sick_days: num('n-sick'),
+        manager_hours_per_week: num('n-mgr'),
+        selected_signals: signalLabels,
+        annual_total_cost: (typeof annualTotal === 'number') ? annualTotal : null,
+        year_view: (typeof years === 'number') ? years : null,
+        projected_cost: (typeof annualTotal === 'number' && typeof years === 'number') ? annualTotal * years : null,
+        diagnostic_url: buildShareURL(),
+        consent_timestamp: consentTs || new Date().toISOString()
+      };
+
+      try {
+        const r = await fetch(SUPABASE_URL + '/rest/v1/leads', {
+          method: 'POST',
+          headers: {
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+            'Content-Type': 'application/json',
+            'Prefer': 'return=minimal'
+          },
+          body: JSON.stringify(payload)
+        });
+        return r.ok;
+      } catch (err) {
+        console.error('[lead:supabase] send failed:', err);
+        return false;
+      }
+    }
     function loadLead() {
       try {
         const raw = localStorage.getItem('js_lead');
@@ -2129,6 +2181,7 @@
       // Fire and forget. Julianna gets an email with the lead and full diagnostic context.
       // Not awaited so a slow or failed network does not block the user from seeing results.
       sendLeadToInbox(name, email, consentTs);
+      sendLeadToSupabase(name, email, consentTs);
 
       updateCtaForLead();
       goTo('results');
