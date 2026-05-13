@@ -131,6 +131,21 @@
   }
   .check-row input[type=checkbox] { margin-top: 2px; width: 18px; height: 18px; accent-color: var(--navy); flex-shrink: 0; }
   .check-row label { font-size: 14px; color: var(--text); cursor: pointer; }
+  .check-row.locked { opacity: 0.4; pointer-events: none; }
+  .check-row.locked label { cursor: not-allowed; }
+  .scroll-hint {
+    font-size: 12px;
+    color: var(--warn);
+    background: var(--warn-bg);
+    border: 1px solid rgba(184,122,0,0.2);
+    border-radius: var(--radius-sm);
+    padding: 10px 14px;
+    margin: 4px 0 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .scroll-hint.hidden { display: none; }
 
   /* FORM */
   .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 24px 0; }
@@ -477,7 +492,7 @@
     <h1>Before we begin.</h1>
     <p>Please read the following carefully and confirm your understanding before proceeding.</p>
 
-    <div class="consent-box">
+    <div class="consent-box" id="consentBox">
       <h4>Letter of Consent & Confidentiality Agreement</h4>
       <p>Welcome to the Julianna Systems Organizational Health Assessment. This platform has been commissioned by your employer to gather candid, anonymous feedback about workplace experience, culture, and well-being.</p>
 
@@ -494,16 +509,18 @@
       <p style="font-size:13px; color: #8a96b0;">Questions? Contact: privacy@juliannasystems.com</p>
     </div>
 
-    <div class="check-row">
-      <input type="checkbox" id="c1" />
+    <div class="scroll-hint" id="scrollHint">↓ Scroll to the bottom of the disclosure above to enable the checkboxes</div>
+
+    <div class="check-row locked" id="checkRow1">
+      <input type="checkbox" id="c1" disabled />
       <label for="c1">I have read and understood the confidentiality terms above, including the mandatory disclosure exception for illegal activity.</label>
     </div>
-    <div class="check-row">
-      <input type="checkbox" id="c2" />
+    <div class="check-row locked" id="checkRow2">
+      <input type="checkbox" id="c2" disabled />
       <label for="c2">I understand my identity will never be shared with my employer and that this assessment is voluntary.</label>
     </div>
-    <div class="check-row">
-      <input type="checkbox" id="c3" />
+    <div class="check-row locked" id="checkRow3">
+      <input type="checkbox" id="c3" disabled />
       <label for="c3">I consent to my anonymized responses being used to generate an aggregated organizational health report.</label>
     </div>
 
@@ -697,6 +714,36 @@ function setRating(id, val) {
   const stars = document.querySelectorAll(`#stars_${id} .star`);
   stars.forEach((s, i) => s.classList.toggle('on', i < val));
 }
+
+// ----- Unlock consent checkboxes once the user scrolls to the bottom of the disclosure -----
+(function setupConsentScroll() {
+  const box = document.getElementById('consentBox');
+  const hint = document.getElementById('scrollHint');
+  if (!box) return;
+
+  function unlock() {
+    ['checkRow1','checkRow2','checkRow3'].forEach(id => {
+      const row = document.getElementById(id);
+      if (row) row.classList.remove('locked');
+    });
+    ['c1','c2','c3'].forEach(id => {
+      const cb = document.getElementById(id);
+      if (cb) cb.disabled = false;
+    });
+    if (hint) hint.classList.add('hidden');
+  }
+
+  function check() {
+    if (box.scrollHeight - box.scrollTop - box.clientHeight < 24) unlock();
+  }
+
+  // If the disclosure happens to fit without scrolling (very tall screen), unlock immediately.
+  setTimeout(() => {
+    if (box.scrollHeight <= box.clientHeight + 4) unlock();
+  }, 150);
+
+  box.addEventListener('scroll', check);
+})();
 
 // ----- Build voice UI -----
 (function buildVoice() {
