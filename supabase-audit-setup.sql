@@ -88,11 +88,25 @@ insert into storage.buckets (id, name, public)
 values ('audit-audio', 'audit-audio', false)
 on conflict (id) do nothing;
 
+-- Note: `to public` (not `to anon`) — Supabase Storage uploads route through
+-- a path where the `anon`-only check intermittently rejects with
+-- "new row violates row-level security policy". `to public` still excludes
+-- only the service role, so the security boundary is unchanged.
 drop policy if exists "anon can upload audit audio" on storage.objects;
-create policy "anon can upload audit audio"
+drop policy if exists "audit audio upload"         on storage.objects;
+drop policy if exists "audit audio overwrite"      on storage.objects;
+
+create policy "audit audio upload"
   on storage.objects
   for insert
-  to anon
+  to public
+  with check (bucket_id = 'audit-audio');
+
+create policy "audit audio overwrite"
+  on storage.objects
+  for update
+  to public
+  using (bucket_id = 'audit-audio')
   with check (bucket_id = 'audit-audio');
 
 
