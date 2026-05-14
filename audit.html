@@ -749,11 +749,6 @@ function setRating(id, val) {
     if (box.scrollHeight - box.scrollTop - box.clientHeight < 24) unlock();
   }
 
-  // If the disclosure happens to fit without scrolling (very tall screen), unlock immediately.
-  setTimeout(() => {
-    if (box.scrollHeight <= box.clientHeight + 4) unlock();
-  }, 150);
-
   box.addEventListener('scroll', check);
 })();
 
