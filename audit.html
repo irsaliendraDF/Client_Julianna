@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Julianna Systems — Org Health Platform</title>
+<title>Julianna Systems | Org Health Platform</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -464,7 +464,7 @@
   <div class="screen active" id="s0">
     <div class="step-ind">Step 1 of 5</div>
     <h1>Welcome.</h1>
-    <p>Enter your unique identifier provided by your organization and create a secure password. Your identity is protected — Julianna Systems will never share identifying information.</p>
+    <p>Enter your unique identifier provided by your organization and create a secure password. Your identity is protected. Julianna Systems will never share identifying information.</p>
 
     <div class="form-grid full" style="margin-top:28px;">
       <div class="field">
@@ -496,13 +496,13 @@
       <h4>Letter of Consent & Confidentiality Agreement</h4>
       <p>Welcome to the Julianna Systems Organizational Health Assessment. This platform has been commissioned by your employer to gather candid, anonymous feedback about workplace experience, culture, and well-being.</p>
 
-      <p><strong>Your identity is fully protected.</strong> Julianna Systems serves as an independent third party and will not share, disclose, or transmit any identifying information about you — including your unique identifier — to your employer or any affiliated parties under any circumstances.</p>
+      <p><strong>Your identity is fully protected.</strong> Julianna Systems serves as an independent third party and will not share, disclose, or transmit any identifying information about you, including your unique identifier, to your employer or any affiliated parties under any circumstances.</p>
 
-      <p>All survey responses, ratings, and voice transcripts are anonymized before any analysis is performed or shared. Reports provided to your organization contain only aggregated data organized by department, role level, tenure, and demographic indicators — never by individual.</p>
+      <p>All survey responses, ratings, and voice transcripts are anonymized before any analysis is performed or shared. Reports provided to your organization contain only aggregated data organized by department, role level, tenure, and demographic indicators, never by individual.</p>
 
-      <p>The demographic information you provide (age range, gender identity, department, role level, tenure) is collected solely for the purpose of identifying systemic patterns — for example, whether employees of a particular gender or in a particular department are experiencing the workplace differently. This data helps surface issues that might otherwise remain invisible.</p>
+      <p>The demographic information you provide (age range, gender identity, department, role level, tenure) is collected solely for the purpose of identifying systemic patterns. For example, whether employees of a particular gender or in a particular department are experiencing the workplace differently. This data helps surface issues that might otherwise remain invisible.</p>
 
-      <div class="warning">⚠ Mandatory Disclosure Exception: If at any point during this assessment you disclose information indicating illegal activity — including but not limited to fraud, abuse, harassment, or criminal behaviour — Julianna Systems is obligated to report this information to the appropriate authorities. This is the sole exception to our confidentiality commitment.</div>
+      <div class="warning">⚠ Mandatory Disclosure Exception: If at any point during this assessment you disclose information indicating illegal activity (including but not limited to fraud, abuse, harassment, or criminal behaviour), Julianna Systems is obligated to report this information to the appropriate authorities. This is the sole exception to our confidentiality commitment.</div>
 
       <p>Your participation is entirely voluntary. You may stop at any time. By proceeding, you confirm that you are completing this assessment of your own free will and understand how your responses will be used.</p>
 
@@ -604,7 +604,7 @@
   <div class="screen" id="s3">
     <div class="step-ind">Step 4 of 5</div>
     <h1>In your own words.</h1>
-    <p>For each question below, you can record your voice or type directly. Transcripts are anonymized — your unique identifier never appears in any response.</p>
+    <p>For each question below, you can record your voice or type directly. Transcripts are anonymized. Your unique identifier never appears in any response.</p>
     <p style="font-size:13px; color: var(--text-light);">Tip: There are no right or wrong answers. Speak freely and honestly.</p>
 
     <div class="voice-section" id="voiceArea">
@@ -669,7 +669,7 @@ const RATINGS = [
   { id: 'r_support',   column: 'rating_support',   label: 'Feeling supported to do your job effectively', lens: 3 },
   { id: 'r_resources', column: 'rating_resources', label: 'Access to tools, resources, and mental health support', lens: 3 },
   { id: 'r_culture',   column: 'rating_culture',   label: 'Overall workplace culture and day-to-day experience', lens: 2 },
-  { id: 'r_benefits',  column: 'rating_benefits',  label: 'Benefits utilization — are you actually using what is offered?', lens: 3 },
+  { id: 'r_benefits',  column: 'rating_benefits',  label: 'Benefits utilization: are you actually using what is offered?', lens: 3 },
 ];
 
 const VOICE_QS = [
@@ -761,7 +761,7 @@ function setRating(id, val) {
         <span class="upload-status" id="upStatus_${q.id}"></span>
       </div>
       <div class="transcript-label">Transcript / Response</div>
-      <textarea class="transcript-area" id="ta_${q.id}" placeholder="Your recording will appear here — or type directly..."></textarea>
+      <textarea class="transcript-area" id="ta_${q.id}" placeholder="Your recording will appear here, or type directly..."></textarea>
     `;
     area.appendChild(div);
   });
@@ -821,7 +821,7 @@ async function startRec(qid) {
     }
   } catch(e) {
     const ta = document.getElementById('ta_' + qid);
-    ta.placeholder = 'Microphone access unavailable — please type your response here.';
+    ta.placeholder = 'Microphone access unavailable. Please type your response here.';
   }
 }
 
@@ -837,7 +837,7 @@ function stopRec(qid) {
 async function transcribeAudio(qid) {
   const ta = document.getElementById('ta_' + qid);
   if (ta.value.trim()) return;
-  ta.value = '[Transcript ready — review above or type your response.]';
+  ta.value = '[Transcript ready. Review above or type your response.]';
 }
 
 async function uploadAudio(qid) {
@@ -1006,8 +1006,8 @@ function generateFallbackReport() {
     overall_score: Math.round((avg(1)+avg(2)+avg(3))/3*10)/10,
     overall_summary: "Based on your responses, this assessment reflects a nuanced picture of your workplace experience. Your ratings highlight both areas of genuine strength and aspects that may benefit from organizational attention.",
     lens1: { score: avg(1), analysis: "Your policy ratings suggest a mixed experience with formal workplace structures. The gap between written policy and lived reality is a common challenge in organizations navigating growth or change. Policies around leave and performance review processes appear to be areas worth examining more closely.", keywords_positive: ["structured","documented","formalised"], keywords_negative: ["inconsistent","unclear"], keywords_neutral: ["process","policy","review"] },
-    lens2: { score: avg(2), analysis: "Day-to-day experience at work is shaped significantly by management relationships and cultural norms that go beyond what any policy document captures. Your ratings and responses reflect the reality of working life — where leadership alignment and team culture play a defining role in how work actually feels.", keywords_positive: ["collaborative","communicative"], keywords_negative: ["disconnected","reactive"], keywords_neutral: ["evolving","adaptive","cultural"] },
-    lens3: { score: avg(3), analysis: "The provision landscape — what is offered versus what is actually felt and used — is one of the most important indicators of organizational well-being. Your responses suggest there may be underutilized supports or a gap between what exists on paper and what employees genuinely access or feel empowered to use.", keywords_positive: ["available","resourced"], keywords_negative: ["underutilized","unseen"], keywords_neutral: ["accessible","optional","programmatic"] },
+    lens2: { score: avg(2), analysis: "Day-to-day experience at work is shaped significantly by management relationships and cultural norms that go beyond what any policy document captures. Your ratings and responses reflect the reality of working life, where leadership alignment and team culture play a defining role in how work actually feels.", keywords_positive: ["collaborative","communicative"], keywords_negative: ["disconnected","reactive"], keywords_neutral: ["evolving","adaptive","cultural"] },
+    lens3: { score: avg(3), analysis: "The provision landscape (what is offered versus what is actually felt and used) is one of the most important indicators of organizational well-being. Your responses suggest there may be underutilized supports or a gap between what exists on paper and what employees genuinely access or feel empowered to use.", keywords_positive: ["available","resourced"], keywords_negative: ["underutilized","unseen"], keywords_neutral: ["accessible","optional","programmatic"] },
     standout_strength: "There is a foundation of structure and intent within this organization that provides a platform for growth.",
     standout_concern: "The gap between stated values and lived experience represents the most significant opportunity for leadership attention.",
     indicators: { policy_practice_gap: Math.max(1, 10-avg(1)), provision_utilization_gap: Math.max(1,10-avg(3)), management_alignment: avg(2) }
@@ -1163,7 +1163,7 @@ function renderReport(r) {
   if (hasVoice) {
     const vt = document.createElement('div');
     vt.className = 'voice-transcript';
-    vt.innerHTML = '<h3>Voice Responses — Anonymized Transcript</h3>';
+    vt.innerHTML = '<h3>Voice Responses: Anonymized Transcript</h3>';
     VOICE_QS.forEach(q => {
       const ans = appData['voice_' + q.id];
       if (ans) {
