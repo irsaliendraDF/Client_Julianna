@@ -630,9 +630,9 @@
   <!-- SCREEN 5: REPORT -->
   <div class="screen" id="s5">
     <div class="report-header">
-      <div class="step-ind" style="color:rgba(245,209,110,0.4)">Organizational Health Report</div>
-      <h1>Your Assessment</h1>
-      <p>Confidential · Anonymized · Three-Lens Analysis</p>
+      <div class="step-ind" style="color:rgba(245,209,110,0.4)">Organizational Health Assessment</div>
+      <h1>Your Three-Lens Report</h1>
+      <p>Confidential · Anonymized</p>
       <div class="report-meta" id="reportMeta"></div>
     </div>
 
@@ -640,7 +640,19 @@
 
     <div class="btn-row" style="margin-top:40px; justify-content:center;">
       <button class="btn-secondary" onclick="window.print()">Print / Save PDF</button>
-      <button class="btn-primary" onclick="resetApp()">Submit New Response →</button>
+      <button class="btn-primary" onclick="goDone()">Done →</button>
+    </div>
+  </div>
+
+  <!-- SCREEN 6: DONE / HANDOFF -->
+  <div class="screen" id="s6">
+    <div style="text-align:center; padding: 60px 16px;">
+      <h1>Thank you.</h1>
+      <p style="font-size: 15px; max-width: 480px; margin: 16px auto 8px;">Your responses have been recorded confidentially.</p>
+      <p style="font-size: 14px; color: var(--text-light); max-width: 480px; margin: 0 auto 32px;">If another team member would like to complete the assessment on this device, start a new response below. Their submission will be saved separately.</p>
+      <div class="btn-row" style="justify-content:center;">
+        <button class="btn-primary" onclick="resetApp()">Submit a New Response →</button>
+      </div>
     </div>
   </div>
 </div>
@@ -922,6 +934,10 @@ function goVoice() {
 
 function goBack(screen) {
   goTo(screen - 1);
+}
+
+function goDone() {
+  goTo(6);
 }
 
 function goTo(n) {
