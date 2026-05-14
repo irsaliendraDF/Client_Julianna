@@ -82,11 +82,15 @@ create policy "anon can insert audit_responses"
 
 
 -- 4) STORAGE BUCKET FOR AUDIO
--- Private bucket. anon can upload, but cannot list or read.
--- Julianna reads files from the Supabase dashboard or via service role.
-insert into storage.buckets (id, name, public)
-values ('audit-audio', 'audit-audio', false)
-on conflict (id) do nothing;
+-- IMPORTANT: Create the `audit-audio` bucket through the Supabase Dashboard UI
+-- (Storage -> New bucket -> name "audit-audio", Public OFF), NOT via SQL.
+-- Creating it via `insert into storage.buckets ...` produces a bucket where
+-- direct DB inserts as anon work but the Storage server upload API still
+-- returns "new row violates row-level security policy". The dashboard sets
+-- additional internal scaffolding the server requires. (Verified 2026-05-14.)
+--
+-- After the bucket is created via the dashboard, the policies below apply
+-- correctly and uploads succeed.
 
 -- Note: target `anon, authenticated` explicitly. `to public` *should* mean
 -- "all roles" in Postgres RLS, but on this project's storage.objects table the
