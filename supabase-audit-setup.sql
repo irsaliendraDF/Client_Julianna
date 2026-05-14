@@ -88,24 +88,22 @@ insert into storage.buckets (id, name, public)
 values ('audit-audio', 'audit-audio', false)
 on conflict (id) do nothing;
 
--- Note: `to public` (not `to anon`) — Supabase Storage uploads route through
--- a path where the `anon`-only check intermittently rejects with
--- "new row violates row-level security policy". `to public` still excludes
--- only the service role, so the security boundary is unchanged.
+-- Note: target `anon, authenticated` explicitly. `to public` *should* mean
+-- "all roles" in Postgres RLS, but on this project's storage.objects table the
+-- public form was not being honored at runtime (direct INSERTs as the anon
+-- role were rejected with "new row violates row-level security policy" even
+-- though pg_policies showed roles={public}). Explicit role targeting works.
 drop policy if exists "anon can upload audit audio" on storage.objects;
-drop policy if exists "audit audio upload"         on storage.objects;
-drop policy if exists "audit audio overwrite"      on storage.objects;
+drop policy if exists "audit audio upload"          on storage.objects;
+drop policy if exists "audit audio overwrite"       on storage.objects;
+drop policy if exists "audit_audio_insert"          on storage.objects;
+drop policy if exists "audit_audio_update"          on storage.objects;
+drop policy if exists "audit_audio_anon_all"        on storage.objects;
 
-create policy "audit audio upload"
+create policy "audit_audio_anon_all"
   on storage.objects
-  for insert
-  to public
-  with check (bucket_id = 'audit-audio');
-
-create policy "audit audio overwrite"
-  on storage.objects
-  for update
-  to public
+  for all
+  to anon, authenticated
   using (bucket_id = 'audit-audio')
   with check (bucket_id = 'audit-audio');
 
