@@ -62,9 +62,8 @@
       cursor: pointer; background: none; border: none;
     }
     .monogram-mark {
-      width: 36px; height: 28px;
+      width: 40px; height: 40px;
       display: inline-flex; align-items: center; justify-content: center;
-      color: var(--ink);
     }
     .monogram-mark svg { width: 100%; height: 100%; display: block; }
     .monogram-text {
@@ -119,9 +118,8 @@
       margin-bottom: 1.5rem;
     }
     .welcome-monogram {
-      width: 64px; height: 48px;
+      width: 84px; height: 84px;
       display: flex; align-items: center; justify-content: center;
-      color: var(--ink);
     }
     .welcome-monogram svg { width: 100%; height: 100%; display: block; }
     .welcome-mark-text {
@@ -1055,7 +1053,7 @@
       .btn-primary.btn-lg { padding: 13px 22px; font-size: 14px; }
       .welcome { padding: 0; }
       .welcome-mark { margin-bottom: 1.25rem; gap: 0.85rem; }
-      .welcome-monogram { width: 56px; height: 42px; }
+      .welcome-monogram { width: 68px; height: 68px; }
       .welcome-mark-tag { font-size: 13px; }
       .welcome-headline { font-size: 24px; line-height: 1.1; margin-bottom: 0.85rem; }
       .welcome-lead { font-size: 12.5px; margin-bottom: 1rem; }
@@ -1168,9 +1166,38 @@
   </style>
 </head>
 <body data-screen="welcome">
+
+  <!-- Julianna Systems circular emblem (defined once, referenced via <use>) -->
+  <svg width="0" height="0" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" focusable="false">
+    <defs>
+      <linearGradient id="jsOliveGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#9C984A"/>
+        <stop offset="100%" stop-color="#6F6C2D"/>
+      </linearGradient>
+      <filter id="jsSoftShadow" x="-30%" y="-30%" width="160%" height="160%">
+        <feGaussianBlur in="SourceAlpha" stdDeviation="4"/>
+        <feOffset dx="2" dy="6"/>
+        <feComponentTransfer><feFuncA type="linear" slope="0.3"/></feComponentTransfer>
+        <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+      <symbol id="jsEmblem" viewBox="140 110 170 170">
+        <circle cx="228" cy="198" r="75" fill="#D09224"/>
+        <circle cx="220" cy="190" r="75" fill="url(#jsOliveGrad)" filter="url(#jsSoftShadow)"/>
+        <g opacity="0.45">
+          <path d="M 196.5,221.5 L 196.5,186.5 A 25,25 0 0 1 246.5,186.5 L 246.5,221.5" stroke="#3a3818" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <line x1="184.5" y1="221.5" x2="258.5" y2="221.5" stroke="#3a3818" stroke-width="3" stroke-linecap="round"/>
+          <path d="M 233.5,191.5 A 12,12 0 0 1 209.5,191.5 A 9,9 0 0 1 227.5,191.5 A 6,6 0 0 1 215.5,191.5 A 3,3 0 0 1 221.5,191.5" stroke="#3a3818" stroke-width="2.25" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </g>
+        <path d="M 195,220 L 195,185 A 25,25 0 0 1 245,185 L 245,220" stroke="#e8dcbf" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <line x1="183" y1="220" x2="257" y2="220" stroke="#e8dcbf" stroke-width="3" stroke-linecap="round"/>
+        <path d="M 232,190 A 12,12 0 0 1 208,190 A 9,9 0 0 1 226,190 A 6,6 0 0 1 214,190 A 3,3 0 0 1 220,190" stroke="#e8dcbf" stroke-width="2.25" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      </symbol>
+    </defs>
+  </svg>
+
   <header class="topbar">
     <button class="monogram" type="button" onclick="goTo('welcome')">
-      <span class="monogram-mark" aria-label="Julianna Systems"><svg viewBox="0 0 40 32" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="4" y1="20" x2="4" y2="27" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="36" y1="20" x2="36" y2="27" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M 4 23 Q 20 6 36 23" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/><circle cx="20" cy="11" r="1.8" fill="#A14B1E"/></svg></span>
+      <span class="monogram-mark" aria-label="Julianna Systems"><svg viewBox="140 110 170 170" xmlns="http://www.w3.org/2000/svg"><use href="#jsEmblem"/></svg></span>
       <span class="monogram-text">@JULIANNA SYSTEMS</span>
     </button>
     <span class="topbar-tag">structure that bends.</span>
@@ -1193,7 +1220,7 @@
     <section class="screen active" data-screen="welcome">
       <div class="welcome">
         <div class="welcome-mark">
-          <div class="welcome-monogram" aria-label="Julianna Systems"><svg viewBox="0 0 40 32" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="4" y1="20" x2="4" y2="27" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="36" y1="20" x2="36" y2="27" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M 4 23 Q 20 6 36 23" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/><circle cx="20" cy="11" r="1.8" fill="#A14B1E"/></svg></div>
+          <div class="welcome-monogram" aria-label="Julianna Systems"><svg viewBox="140 110 170 170" xmlns="http://www.w3.org/2000/svg"><use href="#jsEmblem"/></svg></div>
           <div>
             <p class="welcome-mark-text">@JULIANNA SYSTEMS</p>
             <p class="welcome-mark-tag">structure that bends.</p>
