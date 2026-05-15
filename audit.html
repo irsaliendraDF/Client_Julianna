@@ -78,45 +78,85 @@
     padding: 0;
   }
 
-  /* HEADER */
-  .header {
-    background: var(--paper);
-    padding: 20px 32px 14px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-bottom: 1px dashed var(--line);
+  /* TOPBAR — persistent header across screens (matches calculator) */
+  .topbar {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 16px 32px 0;
+    display: flex; align-items: center; justify-content: space-between;
+    font-family: var(--font-body); font-size: 12px; color: var(--ink-soft);
   }
-  .logo {
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    color: var(--ink);
+  .monogram {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    text-decoration: none; color: var(--ink);
+    background: none; border: none; padding: 0;
   }
-  .logo-mark {
-    width: 36px; height: 36px;
+  .monogram-mark {
+    width: 32px; height: 32px;
     border: 1.5px solid var(--ink);
-    border-radius: var(--radius-sm);
+    border-radius: 6px;
     display: inline-flex; align-items: center; justify-content: center;
-    font-family: var(--font-display); font-weight: 700; font-size: 14px;
+    font-family: var(--font-display); font-weight: 700; font-size: 13px;
     letter-spacing: 0.02em;
     background: var(--card);
   }
-  .logo-text {
+  .monogram-text {
     font-family: var(--font-display);
-    font-weight: 500;
-    font-size: 13px;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
+    font-weight: 500; font-size: 13px;
+    letter-spacing: 0.04em; text-transform: uppercase;
     color: var(--ink);
   }
-  .header-sub {
+  .topbar-tag {
     font-family: var(--font-accent);
     font-style: italic;
     font-size: 13px;
     color: var(--ink-muted);
-    letter-spacing: 0;
-    text-transform: none;
+  }
+
+  /* WELCOME MARK — big monogram block on the intro screen */
+  .welcome-mark {
+    display: flex; align-items: center; gap: 1rem;
+    margin-bottom: 1.25rem;
+  }
+  .welcome-monogram {
+    width: 56px; height: 56px;
+    border: 2px solid var(--ink); border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-weight: 700; font-size: 21px;
+    letter-spacing: 0.02em; color: var(--ink);
+    background: var(--card);
+  }
+  .welcome-mark-text {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--ink); margin-bottom: 2px;
+  }
+  .welcome-mark-tag {
+    font-family: var(--font-accent); font-style: italic;
+    font-size: 14px; color: var(--ink-soft);
+  }
+  .brand-quote {
+    font-family: var(--font-accent); font-style: italic;
+    font-size: 14px; color: var(--ink-soft);
+    border-left: 2px solid var(--terracotta); padding-left: 1rem;
+    max-width: 480px; line-height: 1.5;
+    margin: 24px 0 0;
+  }
+  .brand-quote-attr {
+    font-family: var(--font-body); font-size: 10px;
+    color: var(--ink-muted); letter-spacing: 0.06em;
+    text-transform: uppercase; margin-top: 6px;
+    font-style: normal;
+    display: block;
+  }
+
+  /* SCREEN QUOTE — italic Fraunces sub-line under each h1 */
+  .screen-quote {
+    font-family: var(--font-accent); font-style: italic;
+    font-size: 13px; color: var(--ink-muted);
+    max-width: 540px;
+    margin-bottom: 0.85rem;
+    margin-top: -2px;
   }
 
   /* PROGRESS */
@@ -367,7 +407,18 @@
     color: var(--paper);
     border-radius: var(--radius) var(--radius) 0 0;
     margin: -32px -32px 32px;
+    position: relative;
+    overflow: hidden;
   }
+  .report-header::before {
+    content: 'JS';
+    position: absolute; top: -14px; right: -6px;
+    font-family: var(--font-display); font-size: 140px; font-weight: 700;
+    color: rgba(247, 240, 225, 0.045); letter-spacing: -0.05em;
+    pointer-events: none;
+    line-height: 1;
+  }
+  .report-header > * { position: relative; z-index: 1; }
   .report-header h1 { color: var(--paper); font-family: var(--font-display); font-size: 26px; font-weight: 700; margin-bottom: 6px; letter-spacing: -0.01em; }
   .report-header .step-ind { color: var(--mustard); font-family: var(--font-body); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 500; }
   .report-header p { color: rgba(247,240,225,0.65); font-family: var(--font-accent); font-style: italic; font-size: 13px; margin-bottom: 0; }
@@ -500,7 +551,17 @@
   }
 
   /* STEP INDICATOR */
-  .step-ind { font-family: var(--font-body); font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--terracotta); margin-bottom: 8px; font-weight: 500; }
+  .step-ind {
+    font-family: var(--font-body); font-size: 10.5px;
+    text-transform: uppercase; letter-spacing: 0.12em;
+    color: var(--terracotta); font-weight: 500;
+    margin-bottom: 8px;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .step-ind .step-num {
+    font-family: var(--font-display); font-weight: 700;
+    color: var(--ink);
+  }
 
   /* SCROLLBAR */
   ::-webkit-scrollbar { width: 5px; }
@@ -510,24 +571,28 @@
   @media (max-width: 560px) {
     .form-grid { grid-template-columns: 1fr; }
     .score-grid { grid-template-columns: 1fr; }
-    .header { padding: 16px 20px 10px; }
-    .progress-bar { padding: 4px 20px 10px; }
+    .topbar { padding: 12px 20px 0; }
+    .topbar-tag { display: none; }
+    .progress-bar { padding: 12px 20px 10px; }
     .screen { padding: 24px 20px 48px; }
     .report-header { margin: -24px -20px 24px; padding: 24px; }
+    .welcome-mark { gap: 0.85rem; margin-bottom: 1rem; }
+    .welcome-monogram { width: 52px; height: 52px; font-size: 19px; }
+    .brand-quote { font-size: 13px; padding-left: 0.85rem; }
   }
 </style>
 </head>
 <body>
 
-<div class="platform">
-  <div class="header">
-    <div class="logo">
-      <div class="logo-mark">JS</div>
-      <div class="logo-text">Julianna Systems</div>
-    </div>
-    <div class="header-sub">Confidential Assessment</div>
+<header class="topbar">
+  <div class="monogram">
+    <span class="monogram-mark">J/S</span>
+    <span class="monogram-text">@JULIANNA SYSTEMS</span>
   </div>
+  <span class="topbar-tag">structure that bends.</span>
+</header>
 
+<div class="platform">
   <div class="progress-bar" id="progBar">
     <div class="progress-seg active" id="p0"></div>
     <div class="progress-seg" id="p1"></div>
@@ -538,11 +603,20 @@
 
   <!-- SCREEN 0: LOGIN -->
   <div class="screen active" id="s0">
-    <div class="step-ind">Step 1 of 5</div>
-    <h1>Welcome.</h1>
-    <p>Enter your unique identifier provided by your organization and create a secure password. Your identity is protected. Julianna Systems will never share identifying information.</p>
+    <div class="welcome-mark">
+      <div class="welcome-monogram">J/S</div>
+      <div>
+        <p class="welcome-mark-text">@JULIANNA SYSTEMS</p>
+        <p class="welcome-mark-tag">structure that bends.</p>
+      </div>
+    </div>
 
-    <div class="form-grid full" style="margin-top:28px;">
+    <div class="step-ind"><span class="step-num">01</span> · Identify</div>
+    <h1>Tell us how it's going.</h1>
+    <p class="screen-quote">A confidential reflection on the systems you actually live in at work.</p>
+    <p>Enter the unique identifier provided by your organization and create a password just for this assessment. Your identity is protected. Julianna Systems will never share identifying information.</p>
+
+    <div class="form-grid full" style="margin-top:24px;">
       <div class="field">
         <label>Unique Identifier</label>
         <input type="text" id="uid" placeholder="e.g. ACME-2847-K" maxlength="20" />
@@ -560,12 +634,18 @@
     <div class="btn-row">
       <button class="btn-primary" onclick="goLogin()">Continue →</button>
     </div>
+
+    <p class="brand-quote">
+      "We build systems that work in the real world, not just the ideal one."
+      <span class="brand-quote-attr">Julianna Systems</span>
+    </p>
   </div>
 
   <!-- SCREEN 1: CONSENT -->
   <div class="screen" id="s1">
-    <div class="step-ind">Step 2 of 5</div>
+    <div class="step-ind"><span class="step-num">02</span> · Consent</div>
     <h1>Before we begin.</h1>
+    <p class="screen-quote">Confidentiality is the structure that holds this work together.</p>
     <p>Please read the following carefully and confirm your understanding before proceeding.</p>
 
     <div class="consent-box" id="consentBox">
@@ -609,8 +689,9 @@
 
   <!-- SCREEN 2: DEMOGRAPHICS + RATINGS -->
   <div class="screen" id="s2">
-    <div class="step-ind">Step 3 of 5</div>
-    <h1>About you & your experience.</h1>
+    <div class="step-ind"><span class="step-num">03</span> · Reflect</div>
+    <h1>About you and your experience.</h1>
+    <p class="screen-quote">Patterns only show up when we see across groups, never individuals.</p>
     <p>This information helps identify patterns across different groups. It will never be used to identify you individually.</p>
 
     <h3>Your Profile</h3>
@@ -678,8 +759,9 @@
 
   <!-- SCREEN 3: VOICE RESPONSES -->
   <div class="screen" id="s3">
-    <div class="step-ind">Step 4 of 5</div>
+    <div class="step-ind"><span class="step-num">04</span> · Voice</div>
     <h1>In your own words.</h1>
+    <p class="screen-quote">The systems people actually live in rarely match the ones written down.</p>
     <p>For each question below, you can record your voice or type directly. Transcripts are anonymized. Your unique identifier never appears in any response.</p>
     <p style="font-size:13px; color: var(--text-light);">Tip: There are no right or wrong answers. Speak freely and honestly.</p>
 
@@ -706,9 +788,9 @@
   <!-- SCREEN 5: REPORT -->
   <div class="screen" id="s5">
     <div class="report-header">
-      <div class="step-ind">Organizational Health Assessment</div>
+      <div class="step-ind"><span class="step-num" style="color:var(--paper);">05</span> · Review</div>
       <h1>Your Three-Lens Report</h1>
-      <p>Confidential · Anonymized</p>
+      <p>Confidential · Anonymized · Julianna Systems</p>
       <div class="report-meta" id="reportMeta"></div>
     </div>
 
@@ -722,13 +804,19 @@
 
   <!-- SCREEN 6: DONE / HANDOFF -->
   <div class="screen" id="s6">
-    <div style="text-align:center; padding: 60px 16px;">
+    <div style="text-align:center; padding: 56px 16px 32px;">
+      <div class="welcome-monogram" style="margin: 0 auto 20px;">J/S</div>
       <h1>Thank you.</h1>
-      <p style="font-size: 15px; max-width: 480px; margin: 16px auto 8px;">Your responses have been recorded confidentially.</p>
-      <p style="font-size: 14px; color: var(--text-light); max-width: 480px; margin: 0 auto 32px;">If another team member would like to complete the assessment on this device, start a new response below. Their submission will be saved separately.</p>
+      <p class="screen-quote" style="margin: 0 auto 16px; text-align:center;">A small reflection becomes a real signal. Yours is in.</p>
+      <p style="font-size: 14px; max-width: 480px; margin: 0 auto 8px;">Your responses have been recorded confidentially.</p>
+      <p style="font-size: 13px; color: var(--ink-muted); max-width: 480px; margin: 0 auto 28px;">If another team member would like to complete the assessment on this device, start a new response below. Their submission will be saved separately.</p>
       <div class="btn-row" style="justify-content:center;">
         <button class="btn-primary" onclick="resetApp()">Submit a New Response →</button>
       </div>
+      <p class="brand-quote" style="margin: 40px auto 0; text-align:left; max-width: 380px;">
+        "Messy today. Aligned tomorrow."
+        <span class="brand-quote-attr">Julianna Systems</span>
+      </p>
     </div>
   </div>
 </div>
