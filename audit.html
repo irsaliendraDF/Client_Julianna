@@ -92,14 +92,11 @@
     background: none; border: none; padding: 0;
   }
   .monogram-mark {
-    width: 32px; height: 32px;
-    border: 1.5px solid var(--ink);
-    border-radius: 6px;
+    width: 36px; height: 28px;
     display: inline-flex; align-items: center; justify-content: center;
-    font-family: var(--font-display); font-weight: 700; font-size: 13px;
-    letter-spacing: 0.02em;
-    background: var(--card);
+    color: var(--ink);
   }
+  .monogram-mark svg { width: 100%; height: 100%; display: block; }
   .monogram-text {
     font-family: var(--font-display);
     font-weight: 500; font-size: 13px;
@@ -119,13 +116,11 @@
     margin-bottom: 1.25rem;
   }
   .welcome-monogram {
-    width: 56px; height: 56px;
-    border: 2px solid var(--ink); border-radius: 8px;
+    width: 64px; height: 48px;
     display: flex; align-items: center; justify-content: center;
-    font-family: var(--font-display); font-weight: 700; font-size: 21px;
-    letter-spacing: 0.02em; color: var(--ink);
-    background: var(--card);
+    color: var(--ink);
   }
+  .welcome-monogram svg { width: 100%; height: 100%; display: block; }
   .welcome-mark-text {
     font-family: var(--font-display); font-weight: 700;
     font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase;
@@ -266,6 +261,14 @@
   }
   .field input::placeholder { color: var(--ink-muted); opacity: 0.7; }
   .field input:focus, .field select:focus { border-color: var(--terracotta); background: var(--paper-deep); }
+  .field-hint {
+    font-family: var(--font-body);
+    font-size: 10.5px;
+    color: var(--ink-muted);
+    letter-spacing: 0.02em;
+    line-height: 1.5;
+    margin-top: -2px;
+  }
 
   /* RATING */
   .rating-section { margin: 24px 0; }
@@ -577,7 +580,7 @@
     .screen { padding: 24px 20px 48px; }
     .report-header { margin: -24px -20px 24px; padding: 24px; }
     .welcome-mark { gap: 0.85rem; margin-bottom: 1rem; }
-    .welcome-monogram { width: 52px; height: 52px; font-size: 19px; }
+    .welcome-monogram { width: 56px; height: 42px; }
     .brand-quote { font-size: 13px; padding-left: 0.85rem; }
   }
 </style>
@@ -586,7 +589,7 @@
 
 <header class="topbar">
   <div class="monogram">
-    <span class="monogram-mark">J/S</span>
+    <span class="monogram-mark" aria-label="Julianna Systems"><svg viewBox="0 0 40 32" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="4" y1="20" x2="4" y2="27" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="36" y1="20" x2="36" y2="27" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M 4 23 Q 20 6 36 23" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/><circle cx="20" cy="11" r="1.8" fill="#A14B1E"/></svg></span>
     <span class="monogram-text">@JULIANNA SYSTEMS</span>
   </div>
   <span class="topbar-tag">structure that bends.</span>
@@ -604,7 +607,7 @@
   <!-- SCREEN 0: LOGIN -->
   <div class="screen active" id="s0">
     <div class="welcome-mark">
-      <div class="welcome-monogram">J/S</div>
+      <div class="welcome-monogram" aria-label="Julianna Systems"><svg viewBox="0 0 40 32" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="4" y1="20" x2="4" y2="27" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="36" y1="20" x2="36" y2="27" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M 4 23 Q 20 6 36 23" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/><circle cx="20" cy="11" r="1.8" fill="#A14B1E"/></svg></div>
       <div>
         <p class="welcome-mark-text">@JULIANNA SYSTEMS</p>
         <p class="welcome-mark-tag">structure that bends.</p>
@@ -620,14 +623,17 @@
       <div class="field">
         <label>Unique Identifier</label>
         <input type="text" id="uid" placeholder="e.g. ACME-2847-K" maxlength="20" />
+        <p class="field-hint">At least 4 characters. Use the code provided by your employer.</p>
       </div>
       <div class="field">
         <label>Create Password</label>
         <input type="password" id="pass1" placeholder="Minimum 8 characters" />
+        <p class="field-hint">At least 8 characters. Choose anything memorable just for this session.</p>
       </div>
       <div class="field">
         <label>Confirm Password</label>
         <input type="password" id="pass2" placeholder="Re-enter password" />
+        <p class="field-hint">Must match the password above.</p>
       </div>
     </div>
     <div id="loginErr" class="error-box" style="display:none"></div>
@@ -805,7 +811,7 @@
   <!-- SCREEN 6: DONE / HANDOFF -->
   <div class="screen" id="s6">
     <div style="text-align:center; padding: 56px 16px 32px;">
-      <div class="welcome-monogram" style="margin: 0 auto 20px;">J/S</div>
+      <div class="welcome-monogram" style="margin: 0 auto 20px;" aria-label="Julianna Systems"><svg viewBox="0 0 40 32" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="4" y1="20" x2="4" y2="27" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="36" y1="20" x2="36" y2="27" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M 4 23 Q 20 6 36 23" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/><circle cx="20" cy="11" r="1.8" fill="#A14B1E"/></svg></div>
       <h1>Thank you.</h1>
       <p class="screen-quote" style="margin: 0 auto 16px; text-align:center;">A small reflection becomes a real signal. Yours is in.</p>
       <p style="font-size: 14px; max-width: 480px; margin: 0 auto 8px;">Your responses have been recorded confidentially.</p>
